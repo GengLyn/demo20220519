@@ -1,0 +1,44 @@
+@mixin displayFlex($row:flex-start, $column:stretch, $direction:row, $wrap:nowrap) {
+  display: flex;
+  justify-content: $row;
+  align-items: $column;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+}
+#shopify-section-newsletter{
+	margin:0;
+}
+.newsletter{
+	padding-bottom:0px;
+}
+.input-box{
+  @include displayFlex($row:center,$column:center);
+  .email-image{
+  	margin-right: 50px;
+  }
+}
+.newsletter form .newsletter--form, .newsletter .newsletter__input{
+	background:rgba(255,255,255,0) !important;
+  	
+}
+.newsletter form{
+	max-width:785px !important;
+}
+.newsletter form .newsletter--form{
+  width:500px;
+border-bottom: 1px solid rgba(10, 34, 26, 0.2);
+  padding:0px;
+}
+.newsletter .newsletter__input{
+/* 	border-bottom: 1px solid rgba(10, 34, 26, 0.2); */
+}
+
+.input-group input:focus{
+  outline:none;
+}
+.input-group .btn{
+	background:rgba(0,0,0,0) !important;
+}
+.input-group .btn:hover{
+	background:rgba(0,0,0,0.1) !important;
+}

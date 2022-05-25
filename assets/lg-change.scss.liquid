@@ -1,0 +1,36 @@
+@mixin displayFlex($row:flex-start, $column:stretch, $direction:row, $wrap:nowrap) {
+  display: flex;
+  justify-content: $row;
+  align-items: $column;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+}
+/* featured-collections.liquid */
+.collection-wrapper{
+	padding:0 !important;
+  	max-width:100% !important;
+  	.slick-slider{
+    	margin-bottom:1px;
+    }
+}
+.slick-container{
+  	.item{
+      	margin-left:20px;
+      	.image{
+         	 width:100%;
+        }
+  	}
+  
+}
+.swiper{
+  margin-bottom:-7px;
+  .swiper-wrapper{
+    .swiper-slide{
+    }
+  }
+}
+
+.main-carousel{
+  margin-bottom:-8px;
+  .carousel-cell{}
+}

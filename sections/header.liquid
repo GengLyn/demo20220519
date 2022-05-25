@@ -1,0 +1,502 @@
+{%- style -%}
+  {%- assign logo_max_width = section.settings.logo_max_width -%}
+  {%- assign header_color = section.settings.header_color -%}
+
+  {%- if section.settings.transparent_header_enable and request.page_type == 'index' -%}
+    {%- assign header_color_transparent = section.settings.transparent_header_color -%}
+
+    .header-wrapper.header-wrapper--transparent .site-nav__link,
+    .header-wrapper.header-wrapper--transparent .site-header__logo a {
+      color: {{ header_color_transparent }};
+    }
+
+    .header-wrapper.header-wrapper--transparent .site-header__logo a:hover,
+    .header-wrapper.header-wrapper--transparent .site-nav__link:hover,
+    .header-wrapper.header-wrapper--transparent .site-nav__link:focus,
+    .header-wrapper.header-wrapper--transparent .site-header__logo a:focus {
+      color: {{ header_color_transparent | color_modify: 'alpha', 0.75 }};
+    }
+
+    .header-wrapper.header-wrapper--transparent .site-nav--has-dropdown.nav-hover > .site-nav__link {
+      color: {{ header_color }};
+    }
+
+    .header-wrapper.header-wrapper--transparent .burger-icon,
+    .header-wrapper.header-wrapper--transparent .site-nav__link:hover .burger-icon {
+      background: {{ header_color_transparent }};
+    }
+  {%- endif -%}
+
+  .header-wrapper .site-nav__link,
+  .header-wrapper .site-header__logo a,
+  .header-wrapper .site-nav__dropdown-link,
+  .header-wrapper .site-nav--has-dropdown > a.nav-focus,
+  .header-wrapper .site-nav--has-dropdown.nav-hover > a,
+  .header-wrapper .site-nav--has-dropdown:hover > a {
+    color: {{ header_color }};
+  }
+
+  .header-wrapper .site-header__logo a:hover,
+  .header-wrapper .site-header__logo a:focus,
+  .header-wrapper .site-nav__link:hover,
+  .header-wrapper .site-nav__link:focus,
+  .header-wrapper .site-nav--has-dropdown a:hover,
+  .header-wrapper .site-nav--has-dropdown > a.nav-focus:hover,
+  .header-wrapper .site-nav--has-dropdown > a.nav-focus:focus,
+  .header-wrapper .site-nav--has-dropdown .site-nav__link:hover,
+  .header-wrapper .site-nav--has-dropdown .site-nav__link:focus,
+  .header-wrapper .site-nav--has-dropdown.nav-hover > a:hover,
+  .header-wrapper .site-nav__dropdown a:focus {
+    color: {{ header_color | color_modify: 'alpha', 0.75 }};
+  }
+
+  .header-wrapper .burger-icon,
+  .header-wrapper .site-nav--has-dropdown:hover > a:before,
+  .header-wrapper .site-nav--has-dropdown > a.nav-focus:before,
+  .header-wrapper .site-nav--has-dropdown.nav-hover > a:before {
+    background: {{ header_color }};
+  }
+
+  .header-wrapper .site-nav__link:hover .burger-icon {
+    background: {{ header_color | color_modify: 'alpha', 0.75 }};
+  }
+
+  .site-header__logo img {
+    max-width: {{ logo_max_width | append: 'px' }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .site-header__logo img {
+      max-width: 100%;
+    }
+  }
+{%- endstyle -%}
+<div data-section-id="{{ section.id }}" data-section-type="header-section" data-template="{{ request.page_type }}">
+  <div id="NavDrawer" class="drawer drawer--left">
+    {% include 'drawer-menu' %}
+  </div>
+  <div class="header-container drawer__header-container">
+    <div class="header-wrapper" data-header-wrapper>
+      {% if section.settings.show_announcement %}
+        {% if section.settings.home_page_only == false or request.page_type == 'index' %}
+          <style>
+            .announcement-bar {
+              background-color: {{ section.settings.color_bg }};
+            }
+
+            .announcement-bar--link:hover {
+              {% assign brightness = section.settings.color_bg | color_brightness %}
+
+              {% if brightness <= 192 %}
+                {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
+                background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
+              {% else %}
+                {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
+                background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
+              {% endif %}
+            }
+
+            .announcement-bar__message {
+              color: {{ section.settings.color_text }};
+            }
+          </style>
+
+          {% if section.settings.link == blank %}
+            <div class="announcement-bar">
+          {% else %}
+            <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar--link">
+          {% endif %}
+
+            <p class="announcement-bar__message">{{ section.settings.text | escape }}</p>
+
+          {% if section.settings.link == blank %}
+            </div>
+          {% else %}
+            </a>
+          {% endif %}
+
+        {% endif %}
+      {% endif %}
+
+      <header class="site-header" role="banner"{% if section.settings.transparent_header_enable %} data-transparent-header="true"{% endif %}>
+        <div class="wrapper">
+          <div class="grid--full grid--table">
+            <div class="grid__item large--hide large--one-sixth one-quarter">
+              <div class="site-nav--open site-nav--mobile">
+                <button type="button" class="icon-fallback-text site-nav__link site-nav__link--burger js-drawer-open-button-left" aria-controls="NavDrawer">
+                  <span class="burger-icon burger-icon--top"></span>
+                  <span class="burger-icon burger-icon--mid"></span>
+                  <span class="burger-icon burger-icon--bottom"></span>
+                  <span class="fallback-text">{{ 'general.drawers.navigation' | t }}</span>
+                </button>
+              </div>
+            </div>
+            <div class="grid__item large--one-third medium-down--one-half">
+              {% comment %}
+                Use the uploaded logo from theme settings if enabled.
+                Site name gets precedence with H1 tag on homepage, div on other pages.
+              {% endcomment %}
+              {% if request.page_type == 'index' %}
+                <h1 class="site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+              {% else %}
+                <div class="h1 site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+              {% endif %}
+                {% capture image_size %}{{ logo_max_width | escape }}x{% endcapture %}
+
+                <a href="{{ routes.root_url }}" itemprop="url" class="site-header__logo-link">
+                  {% if section.settings.logo %}
+                    <img class="site-header__logo-image" src="{{ section.settings.logo | img_url: image_size }}" srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x" alt="{{ section.settings.logo.alt | default: shop.name }}" itemprop="logo">
+
+                    {% if request.page_type == 'index' and section.settings.transparent_header_enable %}
+                      {% if section.settings.transparent_logo == blank %}
+                        {%- assign transparent_logo = section.settings.logo -%}
+                      {% else %}
+                        {%- assign transparent_logo = section.settings.transparent_logo -%}
+                      {% endif %}
+
+                      <img class="site-header__logo-image site-header__logo-image--transparent" src="{{ transparent_logo | img_url: image_size }}" srcset="{{ transparent_logo | img_url: image_size }} 1x, {{ transparent_logo | img_url: image_size, scale: 2 }} 2x" alt="{{ section.settings.logo.alt | default: shop.name }}" itemprop="logo">
+                    {% endif %}
+                  {% else %}
+                    {{ shop.name }}
+                  {% endif %}
+                </a>
+              {% if request.page_type == 'index' %}
+                </h1>
+              {% else %}
+                </div>
+              {% endif %}
+            </div>
+            <nav class="grid__item large--two-thirds medium-down--hide" role="navigation">
+              {% comment %}
+                List out your main-menu linklist (default)
+
+                More info on linklists:
+                  - http://docs.shopify.com/themes/liquid-variables/linklists
+              {% endcomment %}
+              <!-- begin site-nav -->
+              <ul class="site-nav" id="AccessibleNav">
+                {% for link in linklists[section.settings.main_menu_link_list].links %}
+                  {% if link.links != blank %}
+                  {% assign parent_index = forloop.index %}
+                    <li
+                      class="site-nav__item site-nav--has-dropdown {% if link.active %}site-nav--active{% endif %}"
+                      aria-haspopup="true"
+                      data-meganav-type="parent">
+                      <a
+                        href="{{ link.url }}"
+                        class="site-nav__link"
+                        data-meganav-type="parent"
+                        aria-controls="MenuParent-{{ parent_index }}"
+                        aria-expanded="false"
+                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                          <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                      </a>
+                      <ul
+                        id="MenuParent-{{ parent_index }}"
+                        class="site-nav__dropdown {% if link.levels == 2 %}site-nav--has-grandchildren{% endif %}"
+                        data-meganav-dropdown>
+                        {% for childlink in link.links %}
+                          {% if childlink.links != blank %}
+                          {% assign child_index = forloop.index %}
+                            <li
+                              class="site-nav__item site-nav--has-dropdown site-nav--has-dropdown-grandchild {% if childlink.active %}site-nav--active{% endif %}"
+                              aria-haspopup="true">
+                              <a
+                                href="{{ childlink.url }}"
+                                class="site-nav__dropdown-link"
+                                aria-controls="MenuChildren-{{ parent_index }}-{{ child_index }}"
+                                data-meganav-type="parent"
+                                {% unless request.page_type == 'index' %}{% if childlink.active %}aria-current="page"{% endif %}{% endunless%}
+                                tabindex="-1">
+                                  {{ childlink.title | escape }}
+                                  <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                              </a>
+                              <div class="site-nav__dropdown-grandchild">
+                                <ul
+                                  id="MenuChildren-{{ parent_index }}-{{ child_index }}"
+                                  data-meganav-dropdown>
+                                  {% for grandchildlink in childlink.links %}
+                                    <li{% if grandchildlink.active %} class="site-nav--active"{% endif %}>
+                                      <a
+                                        href="{{ grandchildlink.url }}"
+                                        class="site-nav__dropdown-link"
+                                        data-meganav-type="child"
+                                        {% unless request.page_type == 'index' %}{% if grandchildlink.active %}aria-current="page"{% endif %}{% endunless %}
+                                        tabindex="-1">
+                                          {{ grandchildlink.title | escape }}
+                                        </a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                            </li>
+                          {% else %}
+                            <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                              <a
+                                href="{{ childlink.url }}"
+                                class="site-nav__dropdown-link"
+                                data-meganav-type="child"
+                                {% if childlink.active %}aria-current="page"{% endif %}
+                                tabindex="-1">
+                                  {{ childlink.title | escape }}
+                              </a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  {% else %}
+                    <li class="site-nav__item{% if link.active %} site-nav--active{% endif %}">
+                      <a
+                        href="{{ link.url }}"
+                        class="site-nav__link"
+                        data-meganav-type="child"
+                        {% unless request.page_type == 'index' %}{% if link.active %}aria-current="page"{% endif %}{% endunless%}>
+                          {{ link.title | escape }}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+
+                {% comment %}
+                  Remove comment tags below to add a search box to your header, visible on screens where your header menu
+                  is displayed inline.
+                  <li class="site-nav__item site-nav--search__bar medium-down--hide">
+                    {% include 'search-bar', search_btn_style: 'btn', search_bar_location: 'search-bar--header' %}
+                  </li>
+                {% endcomment %}
+
+              </ul>
+              <!-- //site-nav -->
+            </nav>
+            <li class="site-nav__item site-nav__item--compressed medium-down--hide">
+                  <a href="{{ routes.cart_url }}" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
+                    <span class="icon-fallback-text">
+                      <span class="icon icon-cart" aria-hidden="true"></span>
+                      <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
+                    </span>
+                    <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
+                  </a>
+             </li>
+            {% if shop.customer_accounts_enabled %}
+                  <li class="site-nav__item site-nav__expanded-item site-nav__item--compressed medium-down--hide">
+                    <a class="site-nav__link site-nav__link--icon" href="{{ routes.account_url }}">
+                      <span class="icon-fallback-text">
+                        <span class="icon icon-customer" aria-hidden="true"></span>
+                        <span class="fallback-text">
+                          {% if customer %}
+                            {{ 'layout.customer.account' | t }}
+                          {% else %}
+                            {{ 'layout.customer.log_in' | t }}
+                          {% endif %}
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                {% endif %}
+            {% if section.settings.search == 'page' or section.settings.search == 'modal' %}
+                  {% assign search_modal = true %}
+                  {% if section.settings.search == 'page' %}
+                    {% assign search_modal = false %}
+                  {% endif %}
+                  <li class="site-nav__item site-nav__item--compressed medium-down--hide">
+                    <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon{% if search_modal %} js-toggle-search-modal{% endif %}" data-mfp-src="#SearchModal">
+                      <span class="icon-fallback-text">
+                        <span class="icon icon-search" aria-hidden="true"></span>
+                        <span class="fallback-text">{{ 'general.search.title' | t }}</span>
+                      </span>
+                    </a>
+                  </li>
+                {% endif %}
+            <div class="grid__item large--hide one-quarter">
+              <div class="site-nav--mobile text-right">
+                <a href="{{ routes.cart_url }}" class="site-nav__link cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
+                  <span class="icon-fallback-text">
+                    <span class="icon icon-cart" aria-hidden="true"></span>
+                    <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
+                  </span>
+                  <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
+                </a>
+              </div>
+            </div>
+           
+       
+          </div>
+        </div>
+      </header>
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": "标头",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": "自定义logo宽度",
+      "min": 20,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "header_color",
+      "label": "链接和图标",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "透明标题"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_header_enable",
+      "label": "在主页上启用透明标题",
+      "info": "在顶部部分是幻灯片时适用。",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "transparent_logo",
+      "label": {
+        "zh-CN": "透明的 logo"
+      },
+      "info": {
+        "zh-CN": "在启用透明标题时显示。"
+      }
+    },
+    {
+      "type": "color",
+      "id": "transparent_header_color",
+      "label": {
+        "zh-CN": "透明的标题链接和图标"
+      },
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "select",
+      "id": "search",
+      "options": [
+        {
+          "value": "modal",
+          "label": {
+            "zh-CN": "模式"
+          }
+        },
+        {
+          "value": "page",
+          "label": {
+            "zh-CN": "页面"
+          }
+        },
+        {
+          "value": "none",
+          "label": {
+            "zh-CN": "无"
+          }
+        }
+      ],
+      "label": {
+        "zh-CN": "搜索类型"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu_link_list",
+      "label": {
+        "zh-CN": "菜单"
+      },
+      "default": "main-menu",
+      "info": {
+        "zh-CN": "如果链接过长，菜单将折叠成菜单按钮。[了解详细信息](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)"
+      }
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_bottom_link_list",
+      "label": {
+        "zh-CN": "辅助侧边栏菜单"
+      },
+      "default": "footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "drawer_search_enable",
+      "label": {
+        "zh-CN": "启用搜索"
+      }
+    },
+    {
+      "type": "header",
+      "content": {
+        "zh-CN": "公告栏"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": {
+        "zh-CN": "显示公告"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_only",
+      "label": {
+        "zh-CN": "仅主页"
+      },
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": {
+        "zh-CN": "文本"
+      },
+      "default": {
+        "zh-CN": "在此处进行公告"
+      }
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": {
+        "zh-CN": "链接"
+      }
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": {
+        "zh-CN": "栏"
+      },
+      "default": "#1c1d1d"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": {
+        "zh-CN": "文本"
+      },
+      "default": "#ffffff"
+    }
+  ]
+}
+{% endschema %}

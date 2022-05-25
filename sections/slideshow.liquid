@@ -1,0 +1,520 @@
+{%- if section.settings.home_hero_height == 'adapt' -%}
+  {% comment %}
+    'min_aspect_ratio' is the minimum aspect ratio of images shown without
+    whitespace when 'home_hero_height' is set to 'adapt'.
+    The aspect ratio values for the first image in the slideshow will be used
+    unless it is blank, in that case a ratio of 2:1 will be used.
+
+    “min_aspect_ratio”是当“home_hero_height”设置为“适配”时显示的无空白图像的最小宽高比。
+    除非幻灯片中的第一张图像为空白，否则将使用宽高比值，在这种情况下，将使用2:1的比例。
+
+  {% endcomment %}
+  {% comment %} 获取第一个block {% endcomment %}
+  {%- assign first_block = section.blocks[0] -%}
+  {% comment %} 如果第一个block的图片比例为空 {% endcomment %}
+  {%- if first_block.settings.image.aspect_ratio == blank -%}
+    {%- assign min_aspect_ratio = 2.0 -%}{% comment %} 将比例设置为2.0 {% endcomment %}
+  {%- else -%}{% comment %} 否则取第一个block设置的比例 {% endcomment %}
+    {%- assign min_aspect_ratio = first_block.settings.image.aspect_ratio -%}
+  {%- endif -%}
+  {% comment %} 根据比例设置容器的高 {% endcomment %}
+  {%- assign wrapper_height = 100 | divided_by: min_aspect_ratio -%}
+
+  {% comment %}
+    Change the hero slideshow's dots color based on the slides' text color.
+    根据幻灯片的文本颜色更改幻灯片的点颜色。
+  {% endcomment %}
+  {%- style -%}
+    .hero-{{ section.id }} {
+      height: {{- wrapper_height -}}vw !important;
+      overflow: hidden;
+    }
+    .hero-{{ section.id }} .slick-track,
+    .hero-{{ section.id }} .slideshow__overlay:before {
+      height: {{- wrapper_height -}}vw;
+    }
+  {%- endstyle -%}
+{%- endif -%}
+<div id="HeroWrapper-{{ section.id }}"
+      {% if section.settings.home_hero_height == 'adapt' %} class="hero--adapt"{% endif %} 
+      data-section-id="{{ section.id }}" 
+      data-section-type="slideshow-section">
+  {% comment %} section中block存在 {% endcomment %}
+  {%- if section.blocks.size > 0 -%}
+    <div class="hero-{{ section.id }} hero"
+          id="Hero-{{ section.id }}"
+          aria-label="slideshow"
+          aria-describedby="a11y-slideshow-info"
+          tabindex="-1"
+          role="region"
+          data-autoplay="{{ section.settings.hero_home_auto }}"
+          data-autoplayspeed="{{ section.settings.home_hero_auto_speed | times: 1000 }}"
+          data-adapt="{% if section.settings.home_hero_height == 'adapt' %}true{% else %}false{% endif %}"
+          data-slide-nav-a11y="{{ 'home_page.slideshow.load_slide' | t: slide_number: '[slide_number]' }}"
+          data-slide-nav-active-a11y="{{ 'home_page.slideshow.active_slide' | t: slide_number: '[slide_number]' }}"
+          data-slide-index="0">
+      {% comment %} 循环section中block展示轮播图图片 {% endcomment %}
+      {%- for block in section.blocks -%}
+        {%- style -%}
+          /* forloop??? */
+          #HeroWrapper-{{ section.id }} .hero--color-{{ forloop.index0 }} .hero__pause,
+          #HeroWrapper-{{ section.id }} .hero--color-{{ forloop.index0 }} .hero__pause .icon:before,
+          #HeroWrapper-{{ section.id }} .hero--color-{{ forloop.index0 }} .slick-prev .icon:before,
+          #HeroWrapper-{{ section.id }} .hero--color-{{ forloop.index0 }} .slick-next .icon:before,
+          #HeroWrapper-{{ section.id }} .hero--color-{{ forloop.index0 }} .slide--{{ block.id }} {
+            /* 设置字体颜色 */
+            color: {{ block.settings.slide_text_color }};
+          }
+          #HeroWrapper-{{ section.id }} .hero--color-{{ forloop.index0 }} .slick-dots li a:before {
+            /* 设置点的默认样式 */
+            background: transparent;
+            border-color: {{ block.settings.slide_text_color }};
+          }
+          #HeroWrapper-{{ section.id }} .hero--color-{{ forloop.index0 }} li.slick-active a:before {
+            /* 设置点的激活样式 */
+            background: {{ block.settings.slide_text_color }};
+            border-color: transparent;
+          }
+          #HeroWrapper-{{ section.id }} .hero--color-{{ forloop.index0 }} .hero__pause .icon {
+            /* fill??? */
+            fill: {{ block.settings.slide_text_color }};
+          }
+          #HeroWrapper-{{ section.id }} .slide--{{ block.id }} .hero__text-wrap {
+            /* 设置文本对齐方式 */
+            text-align: {{ block.settings.text_alignment }}
+          }
+        {%- endstyle -%}
+        {%- comment -%}
+          Apply a color overlay on a per-slide basis. The overlay is defined by
+          a linear gradient with 4 points along it. The last 3 points cause the
+          bottom of the overlay to be more opaque, in order to increase contrast
+          with the controls for a11y purposes. Remove the 'background-image'
+          style below and change to the following to remove the gradient:
+
+          在每个幻灯片的基础上应用颜色叠加。覆盖层由沿着它有4个点的线性梯度。
+          最后三点导致底部的叠加要更不透明，以增加对比度为了某种目的而使用控件。
+          删除背景图像的样式如下，并更改如下，以删除渐变:
+
+          background-color: {{ block.settings.image_overlay }};
+          opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.00 }};
+
+        {%- endcomment -%}
+        {% comment %} 显示叠加 {% endcomment %}
+        {%- if block.settings.image_overlay -%}
+          {%- style -%}
+            .slide--{{ block.id }} .slideshow__overlay:before {
+              {%- assign opacity_alpha = block.settings.image_overlay_opacity | divided_by: 100.00 -%}{% comment %} 叠加不透明度 {% endcomment %}
+              {%- assign opacity_alpha_3 = opacity_alpha | plus: 0.25 | at_most: 1.0 -%}{% comment %} 最大不透明度 {% endcomment %}
+              {% comment %} 最小和最大相加除以二 {% endcomment %}
+              {%- assign opacity_alpha_2 = opacity_alpha_3 | minus: opacity_alpha | divided_by: 2.0 | plus: opacity_alpha -%}
+              background-image: linear-gradient(to bottom,
+                                {{ '#000' | color_modify: 'alpha', opacity_alpha }},
+                                {{ '#000' | color_modify: 'alpha', opacity_alpha }} calc(100% - 150px),
+                                {{ '#000' | color_modify: 'alpha', opacity_alpha_2 }} calc(100% - 60px),
+                                {{ '#000' | color_modify: 'alpha', opacity_alpha_3 }});
+            }
+          {%- endstyle -%}
+        {%- endif -%}
+        <div class="hero__slide slide--{{ block.id }} {% if block.settings.image == blank %} slide--placeholder {% endif %}"
+              data-hero-slide
+              {{ block.shopify_attributes }}>
+          {% comment %} block图片为空 {% endcomment %}
+          {%- if block.settings.image == blank -%}
+            <div class="placeholder-background">
+              {% comment %} 将 current 循环赋值1和2 {% endcomment %}
+              {%- capture current -%}{% cycle 1, 2 %}{%- endcapture -%}
+              {% comment %} lifestyle1  采用svg占位符，替换成svg {% endcomment %}
+              {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- else -%}
+            <noscript>{% comment %} 禁用脚本 {% endcomment %}
+              {%- if forloop.first == true -%}
+                <div class="hero__image-no-js"
+                  {% if block.settings.image %}
+                    style="background-image: url('{{ block.settings.image | img_url: '2048x' }}');"
+                  {% endif %}>
+                </div>
+              {%- endif -%}
+            </noscript>
+            {% comment %} 定义图片大小 {% endcomment %}
+            {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            {% comment %} 显示图片 {% endcomment %}
+            <img class="hero__image hero__image--{{ block.id }} lazyload fade-in {% unless forloop.first == true %} lazypreload {% endunless %}"
+              {%- if forloop.first == true -%}
+                src="{{ block.settings.image | img_url: '300x' }}"
+              {%- endif -%}
+              data-src="{{ img_url }}"
+              data-widths="[540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]"
+              data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+              data-sizes="auto"
+              data-parent-fit="cover"
+              data-hero-image
+              alt="{{ block.settings.image.alt | escape }}"
+              style="object-position: {{ block.settings.image_position }}">
+          {%- endif -%}
+          <div class="hero__text-wrap {% if block.settings.image_overlay %} slideshow__overlay {% endif %}">{% comment %} 是否显示叠加 {% endcomment %}
+            <div class="hero__text-align wrapper">
+              <div class="hero__text-content" data-hero-text-content>
+                {%- unless block.settings.slide_subheading == blank -%}
+                  <p class="hero__subtitle">{% comment %} 转码显示副标题 {% endcomment %}
+                    {{ block.settings.slide_subheading | escape }}
+                  </p>
+                {%- endunless -%}
+                {%- unless block.settings.slide_heading == blank -%}
+                  <h2 class="hero__title h1">{% comment %} 转码显示标题 {% endcomment %}
+                    {{ block.settings.slide_heading | escape }}
+                  </h2>
+                {%- endunless -%}
+                {% comment %} 按钮标题和链接同时存在，显示按钮 {% endcomment %}
+                {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                  <a href="{{ block.settings.button_link }}" 
+                    style="color: {{ block.settings.slide_button_label_color }}; background-color:{{ block.settings.slide_button_background_color }}" class="btn hero__cta">
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+      {% comment %} block个数大于1 {% endcomment %}
+      {%- if section.blocks.size > 1 -%}
+        <div class="hero__controls wrapper">
+          {% comment %} 是否开启自动转动幻灯片 {% endcomment %}
+          {%- if section.settings.hero_home_auto -%}
+            <button class="hero__pause" 
+                    aria-live="polite" 
+                    aria-label="{{ 'home_page.slideshow.pause' | t }}" 
+                    data-label-pause="{{ 'home_page.slideshow.pause' | t }}" 
+                    data-label-play="{{ 'home_page.slideshow.play' | t }}" 
+                    data-pause>
+              <span class="icon icon-pause" aria-hidden="true"></span>
+              <span class="icon icon-play" aria-hidden="true"></span>
+            </button>
+          {%- endif -%}
+          <ul>{% comment %} 显示前进后退按钮 {% endcomment %}
+            <li>
+              <button class="slick-prev" aria-label="{{ 'home_page.slideshow.previous_slide' | t }}" data-slide-previous>
+                <span class="icon icon-slide-prev" aria-hidden="true"></span>
+              </button>
+            </li>
+            <li>
+              <button class="slick-next" aria-label="{{ 'home_page.slideshow.next_slide' | t }}" data-slide-next>
+                <span class="icon icon-slide-next" aria-hidden="true"></span>
+              </button>
+            </li>
+          </ul>
+          {% comment %} 提示点的显示 {% endcomment %}
+          <div class="hero__dots-wrapper" data-hero-dots-wrapper></div>
+        </div>
+      {%- endif -%}
+    </div>
+    {% comment %} 是否开启自适应高度 {% endcomment %}
+    {%- if section.settings.home_hero_height == 'adapt' -%}
+      <div class="hero__adapt-text-wrap wrapper" data-hero-adapt-text-wrap>
+        {%- for block in section.blocks -%}
+          <div class="hero__text-content hero__text-content--adapt text-center" data-index="{{ forloop.index0 }}" data-hero-text-content>
+            {%- unless block.settings.slide_subheading == blank -%}
+              <p class="hero__subtitle">
+                {{ block.settings.slide_subheading | escape }}
+              </p>
+            {%- endunless -%}
+            {%- unless block.settings.slide_heading == blank -%}
+              <h2 class="hero__title h1">
+                {{ block.settings.slide_heading | escape }}
+              </h2>
+            {%- endunless -%}
+            {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+              <a href="{{ block.settings.button_link }}" class="hero__cta btn">
+                {{ block.settings.button_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+{% schema %}
+{
+  "name": {
+    "zh-CN": "幻灯片"
+  },
+  "class": "index-section index-slideshow-section shopify-section--full-width",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "select",
+      "id": "home_hero_height",
+      "label": {
+        "zh-CN": "幻灯片高度"
+      },
+      "default": "full",
+      "info": {
+        "zh-CN": "详细了解[幻灯片指南](https://help.shopify.com/en/manual/using-themes/themes-by-shopify/brooklyn/sections/home-sections#slideshow)"
+      },
+      "options": [
+        {
+          "value": "full",
+          "label": {
+            "zh-CN": "全屏"
+          }
+        },
+        {
+          "value": "adapt",
+          "label": {
+            "zh-CN": "适应第一张图片"
+          }
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_home_auto",
+      "label": {
+        "zh-CN": "自动旋转幻灯片"
+      },
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "home_hero_auto_speed",
+      "label": {
+        "zh-CN": "幻灯片更改时间间隔"
+      },
+      "max": 9,
+      "min": 3,
+      "step": 2,
+      "unit": {
+        "zh-CN": " s"
+      },
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "zh-CN": "幻灯片"
+      },
+      "category": {
+        "zh-CN": "图片"
+      },
+      "settings": {
+        "hero_home_auto": false,
+        "home_hero_auto_speed": 5
+      },
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": {
+        "zh-CN": "幻灯片"
+      },
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": {
+            "zh-CN": "图片"
+          }
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": {
+            "zh-CN": "图片位置"
+          },
+          "default": "center center",
+          "options": [
+            {
+              "label": {
+                "zh-CN": "左上方"
+              },
+              "value": "left top"
+            },
+            {
+              "label": {
+                "zh-CN": "顶部居中"
+              },
+              "value": "center top"
+            },
+            {
+              "label": {
+                "zh-CN": "右上方"
+              },
+              "value": "right top"
+            },
+            {
+              "label": {
+                "zh-CN": "中间居左"
+              },
+              "value": "left center"
+            },
+            {
+              "label": {
+                "zh-CN": "中间居中"
+              },
+              "value": "center center"
+            },
+            {
+              "label": {
+                "zh-CN": "中间居右"
+              },
+              "value": "right center"
+            },
+            {
+              "label": {
+                "zh-CN": "左下方"
+              },
+              "value": "left bottom"
+            },
+            {
+              "label": {
+                "zh-CN": "底部居中"
+              },
+              "value": "center bottom"
+            },
+            {
+              "label": {
+                "zh-CN": "右下方"
+              },
+              "value": "right bottom"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "image_overlay",
+          "label": {
+            "zh-CN": "显示叠加"
+          },
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "image_overlay_opacity",
+          "label": {
+            "zh-CN": "叠加不透明度"
+          },
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": {
+            "zh-CN": "%"
+          },
+          "default": 25
+        },
+        {
+          "type": "header",
+          "content": {
+            "zh-CN": "文本"
+          }
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": {
+            "zh-CN": "文本对齐方式"
+          },
+          "options": [
+            {
+              "value": "left",
+              "label": {
+                "zh-CN": "左侧"
+              }
+            },
+            {
+              "value": "center",
+              "label": {
+                "zh-CN": "居中"
+              }
+            },
+            {
+              "value": "right",
+              "label": {
+                "zh-CN": "右侧"
+              }
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "slide_heading",
+          "label": {
+            "zh-CN": "标题"
+          },
+          "default": {
+            "zh-CN": "主横幅"
+          }
+        },
+        {
+          "type": "text",
+          "id": "slide_subheading",
+          "label": {
+            "zh-CN": "副标题"
+          },
+          "default": {
+            "zh-CN": "介绍性的"
+          }
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": {
+            "zh-CN": "按钮标签"
+          },
+          "default": {
+            "zh-CN": "立即购买"
+          }
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": {
+            "zh-CN": "按钮链接"
+          }
+        },
+        {
+          "type": "color",
+          "id": "slide_text_color",
+          "label": {
+            "zh-CN": "文本和图标"
+          },
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "slide_button_label_color",
+          "label": {
+            "zh-CN": "按钮标签"
+          },
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "slide_button_background_color",
+          "label": {
+            "zh-CN": "按钮"
+          },
+          "default": "#1f2021"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{% comment %} section.if == 'slideshow' {% endcomment %}
+{% comment %} 
+  forloop是啥？         line60
+  fill？                line79
+{% endcomment %}

@@ -1,0 +1,144 @@
+{{ 'lg-change.scss.css' | asset_url | stylesheet_tag }}
+<div data-section-id="{{ section.id }}" data-section-type="featured-collections-section">
+  <div class="wrapper collection-wrapper">
+    {%comment%}
+      slick
+    {%endcomment%}
+    <div class="grid collection-grid slick-container">
+      {% for block in section.blocks %}
+      <div class="item">
+        <img class="image lazyload" src="{{block.settings.image | img_url:'master'}}"/>
+      </div>
+	  {% endfor %}
+    </div>
+    {%comment%}
+    	swiper
+    {%endcomment%}
+    <div class="grid collection-grid swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+      	<div class="swiper-slide">
+      		<img class="image lazyload" src="{{block.settings.image | img_url}}" data-src="{{block.settings.image | img_url:'master'}}"/>
+      	</div>
+        {% endfor %}
+      </div>
+    </div>
+    {%comment%}
+    	flickity
+    {%endcomment%}
+    <div class="grid collection-grid main-carousel">
+        {% for block in section.blocks %}
+      	<div class="carousel-cell">
+      		<img class="image lazyload" src="{{block.settings.image | img_url:'master'}}"/>
+      	</div>
+        {% endfor %}
+  </div>
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+      //slick
+      $('.slick-container').slick({
+        arrows: false,
+  		  infinite: true,
+  		  slidesToShow: 4,
+  		  slidesToScroll: 3,
+        autoplay: true,
+  		  autoplaySpeed: 2000,
+        responsive: [
+          {
+            breakpoint: 1000,//屏幕小于1000
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              infinite: true,
+              autoplay: true,
+  			  autoplaySpeed: 2000
+            }
+          },
+          {
+            breakpoint: 590,// 屏幕小于590
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              infinite: true,
+              autoplay: true,
+  			  autoplaySpeed: 2000
+            }
+          }
+        ]
+	  });
+      
+//       swiper
+      var mySwiper = new Swiper ('.swiper', {
+        loop: true, // 循环模式选项
+        height: 300,//你的slide高度
+    	slidesPerView: 2,
+    	loopedSlides: 5,
+        spaceBetween : 20,
+        breakpoints: { 
+      		590: {  //当屏幕宽度大于等于590
+        		slidesPerView: 3,
+        		spaceBetween: 20
+      	},
+      		1000: {  //当屏幕宽度大于等于1000
+        		slidesPerView: 4,
+        		spaceBetween: 20
+      	}
+	  }});
+      
+//       flickity
+      $('.main-carousel').flickity({
+  		// options
+  		cellAlign: 'left',
+  		contain: true,
+        prevNextButtons: false,
+        pageDots: false,
+        groupCells: 1
+	  });
+      
+//       lazyload
+      lazyload();
+      
+ });
+  
+//     
+</script>
+
+{% schema %}
+{
+  "name": {
+    "zh-CN": "产品系列列表"
+  },
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "zh-CN": "标题"
+      },
+      "default": {
+        "zh-CN": "产品系列列表"
+      }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "images",
+      "name": {
+        "zh-CN": "图片"
+      },
+      "settings": [
+        {
+          "id": "image",
+          "type": "image_picker",
+          "label": {
+            "zh-CN": "收藏"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

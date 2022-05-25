@@ -1,0 +1,575 @@
+{
+  "current": {
+    "color_body_bg": "#ffffff",
+    "color_headings": "#321863",
+    "color_body_text": "#565656",
+    "color_borders": "#5dd2b4",
+    "color_button_text": "#ffffff",
+    "color_primary": "#7737BD",
+    "color_secondary": "#058677",
+    "color_product_background": "#fff4f6",
+    "color_sale_tag": "#e80970",
+    "color_input": "#f6f6f6",
+    "color_newsletter": "#bde9f2",
+    "color_drawer_background": "#360f5f",
+    "color_drawer_text": "#ffffff",
+    "color_drawer_border": "#50297a",
+    "color_drawer_button": "#7737BD",
+    "color_drawer_button_text": "#ffffff",
+    "type_header_family": "quicksand_n7",
+    "type_header_base_size": "38px",
+    "type_header_border_thickness": "1px",
+    "type_accent_family": "roboto_n7",
+    "type_accent_transform": true,
+    "type_accent_spacing": true,
+    "type_accent_subheadings": false,
+    "type_base_family": "helvetica_n4",
+    "type_base_size": "17px",
+    "type_base_italize_titles": false,
+    "cart_type": "drawer",
+    "cart_notes_enable": true,
+    "social_facebook_link": "https:\/\/www.facebook.com\/shopify",
+    "social_twitter_link": "https:\/\/twitter.com\/shopify",
+    "social_pinterest_link": "https:\/\/www.pinterest.com\/shopify",
+    "social_instagram_link": "https:\/\/instagram.com\/shopify",
+    "social_snapchat_link": "",
+    "social_google_plus_link": "",
+    "social_tumblr_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "social_fancy_link": "",
+    "share_facebook": true,
+    "share_twitter": true,
+    "share_pinterest": true,
+    "favicon": "",
+    "checkout_header_image": "",
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "small",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#ffffff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fff4f6",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Roboto",
+    "checkout_accent_color": "#7737BD",
+    "checkout_button_color": "#7737BD",
+    "checkout_error_color": "#f01130",
+    "checkout_banner_background_color": "#fff",
+    "checkout_call_to_action_color": "#a26b25",
+    "checkout_use_header_image": false,
+    "collection_products_grid": "collage",
+    "customer_layout": "customer_area",
+    "favicon_enable": false,
+    "product_vendor_enable": false,
+    "social_sharing_style": "clean",
+    "sections": {
+      "slideshow": {
+        "type": "slideshow",
+        "blocks": {
+          "1495823280244": {
+            "type": "slide",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg",
+              "image_position": "center center",
+              "image_overlay": true,
+              "image_overlay_opacity": 25,
+              "text_alignment": "center",
+              "slide_heading": "主横幅",
+              "slide_subheading": "介绍性的",
+              "button_label": "立即购买",
+              "button_link": "",
+              "slide_text_color": "#ffffff",
+              "slide_button_label_color": "#003b34",
+              "slide_button_background_color": "#84d1b2"
+            }
+          },
+          "fdad67a6-b2e6-4df5-a12a-911e9463fec2": {
+            "type": "slide",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/flatlay-of-jade-face-roller-laying-on-a-grey-stone.jpg",
+              "image_position": "center center",
+              "image_overlay": true,
+              "image_overlay_opacity": 25,
+              "text_alignment": "center",
+              "slide_heading": "主横幅",
+              "slide_subheading": "介绍性的",
+              "button_label": "立即购买",
+              "button_link": "",
+              "slide_text_color": "#ffffff",
+              "slide_button_label_color": "#ffffff",
+              "slide_button_background_color": "#1f2021"
+            }
+          }
+        },
+        "block_order": [
+          "1495823280244",
+          "fdad67a6-b2e6-4df5-a12a-911e9463fec2"
+        ],
+        "settings": {
+          "home_hero_height": "full",
+          "hero_home_auto": false,
+          "home_hero_auto_speed": 5
+        }
+      },
+      "featured-products": {
+        "type": "featured-products",
+        "settings": {
+          "title": "特色产品系列",
+          "home_featured_products": "frontpage",
+          "collection_products_grid": "collage"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "heading": "Get Free Bed Accessories When you sign up to receive Z-HOM emails",
+          "subheading": ""
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify:\/\/shop_images\/logo.png",
+          "logo_max_width": 53,
+          "header_color": "#000000",
+          "transparent_header_enable": false,
+          "transparent_logo": "shopify:\/\/shop_images\/logo.png",
+          "transparent_header_color": "#ffffff",
+          "search": "modal",
+          "main_menu_link_list": "main-menu",
+          "drawer_bottom_link_list": "footer",
+          "drawer_search_enable": false,
+          "show_announcement": true,
+          "home_page_only": true,
+          "text": "Up to 50% OFF for Bedroom Furniture",
+          "link": "shopify:\/\/collections\/frontpage",
+          "color_bg": "#144937",
+          "color_text": "#ffffff"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "724b51bb-7c9e-47ae-8765-49da8d1da146": {
+            "type": "text",
+            "settings": {
+              "title": "Our Company",
+              "footer_link_list": "footer"
+            }
+          },
+          "fd40794f-dc97-41f1-9d08-f3452a4aff15": {
+            "type": "text",
+            "settings": {
+              "title": "Customer Service",
+              "footer_link_list": "footer"
+            }
+          },
+          "f85f3b04-5c49-4062-a30a-b231d6151728": {
+            "type": "text1",
+            "settings": {
+              "title": "Contact Us",
+              "icon1": "<svg width=\"12\" height=\"17\" viewbox=\"0 0 12 17\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n<path d=\"M1.59237 9.81447L1.58727 9.80714L1.58191 9.8C0.76656 8.71286 0.412781 7.26308 0.518081 5.82399C0.623399 4.38464 1.18443 3.0046 2.13547 2.05355C3.13707 1.05195 4.50783 0.5 5.98191 0.5C7.456 0.5 8.82676 1.05195 9.82836 2.05355C10.7794 3.0046 11.3404 4.38464 11.4457 5.82399C11.551 7.26308 11.1973 8.71286 10.3819 9.8L10.3766 9.80714L10.3715 9.81447L5.98191 16.1244L1.59237 9.81447ZM8.78019 5.94152L8.78191 5.9208V5.9C8.78191 4.42386 7.55806 3.2 6.08191 3.2C4.60577 3.2 3.38191 4.42386 3.38191 5.9C3.38191 7.37614 4.60577 8.6 6.08191 8.6C7.59235 8.6 8.66304 7.34722 8.78019 5.94152Z\" stroke=\"white\"><\/path>\n<\/svg>",
+              "title1": "Hahnenstr. 47-49, Köln,50667 Germany",
+              "icon2": "<svg width=\"15\" height=\"15\" viewbox=\"0 0 15 15\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n<path d=\"M12.6199 8.9C12.3199 8.6 11.9199 8.4 11.5199 8.4C11.1199 8.4 10.7199 8.6 10.3199 8.9L9.31986 10C9.21986 9.9 9.11986 9.9 9.01986 9.9C8.91986 9.8 8.81986 9.7 8.71986 9.7C7.71986 9.1 6.81986 8.2 5.91986 7.2C5.51986 6.6 5.21986 6.2 5.01986 5.7C5.31986 5.5 5.51986 5.2 5.81986 5C5.91986 4.9 6.01986 4.8 6.01986 4.7C6.81986 4 6.81986 3.1 6.01986 2.4L5.11986 1.4C5.01986 1.3 4.91986 1.2 4.81986 1.1C4.61986 0.9 4.41986 0.7 4.21986 0.5C3.91986 0.2 3.51986 0 3.01986 0C2.61986 0 2.21986 0.2 1.91986 0.5L0.719863 1.7C0.319863 2.1 0.119863 2.6 0.019863 3.2C-0.080137 4.2 0.219863 5.1 0.419863 5.7C1.01986 7.2 1.81986 8.5 3.01986 10C4.51986 11.8 6.31986 13.1 8.31986 14.1C9.11986 14.5 10.1199 14.9 11.3199 15C11.4199 15 11.4199 15 11.5199 15C12.3199 15 12.9199 14.7 13.4199 14.2C13.6199 14 13.8199 13.8 14.0199 13.6C14.1199 13.5 14.3199 13.3 14.4199 13.2C14.7199 12.9 14.9199 12.5 14.9199 12C14.9199 11.6 14.7199 11.2 14.4199 10.8L12.6199 8.9ZM13.8199 12.5C13.7199 12.6 13.5199 12.8 13.4199 12.9C13.2199 13.1 13.0199 13.3 12.7199 13.6C12.4199 14 12.0199 14.1 11.4199 14.1C11.3199 14.1 11.3199 14.1 11.2199 14.1C10.2199 14 9.31986 13.6 8.61986 13.3C6.71986 12.4 5.01986 11.1 3.61986 9.4C2.61986 8 1.81986 6.8 1.31986 5.4C1.01986 4.6 0.919863 3.9 0.919863 3.3C0.919863 2.9 1.11986 2.6 1.41986 2.3L2.61986 1.2C2.71986 1 2.91986 0.9 3.11986 0.9C3.31986 0.9 3.51986 1 3.61986 1.1C3.81986 1.3 4.01986 1.5 4.21986 1.8C4.31986 1.9 4.41986 2 4.51986 2.1L5.41986 3C5.81986 3.4 5.81986 3.7 5.41986 4C5.31986 4.1 5.21986 4.2 5.11986 4.3C4.81986 4.6 4.61986 4.9 4.31986 5.1C4.01986 5.5 4.01986 5.7 4.11986 5.9C4.31986 6.5 4.71986 7 5.21986 7.7C6.11986 8.8 7.11986 9.7 8.21986 10.4C8.31986 10.5 8.51986 10.6 8.61986 10.6C8.71986 10.7 8.81986 10.7 8.91986 10.8C9.11986 10.9 9.21986 11 9.31986 11C9.61986 11 9.81986 10.8 9.81986 10.8L11.0199 9.6C11.1199 9.5 11.3199 9.3 11.5199 9.3C11.7199 9.3 11.9199 9.4 12.0199 9.5L13.9199 11.4C14.2199 11.8 14.2199 12.1 13.8199 12.5Z\" fill=\"white\"><\/path>\n<\/svg>",
+              "title2": "49 221-8018 0600",
+              "icon3": "<svg width=\"14\" height=\"12\" viewbox=\"0 0 14 12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\">\n<path d=\"M12.3 0H1.7C0.8 0 0 0.8 0 1.8V9.3C0 10.3 0.8 11.1 1.7 11.1H12.3C13.2 11.1 14 10.3 14 9.3V1.8C14 0.8 13.2 0 12.3 0ZM12.3 10.2H1.7C1.2 10.2 0.8 9.8 0.8 9.2V1.8C0.8 1.3 1.2 0.8 1.7 0.8H12.3C12.8 0.8 13.2 1.2 13.2 1.8V9.3C13.2 9.8 12.8 10.2 12.3 10.2ZM8.8 5.4L12.2 2.2C12.4 2.1 12.4 1.8 12.2 1.6C12.1 1.4 11.8 1.4 11.6 1.6L7 6L6.1 5.2C6.1 5.2 6.1 5.2 6 5.1L2.3 1.6C2.1 1.5 1.9 1.5 1.7 1.6C1.6 1.8 1.6 2 1.7 2.2L5.2 5.4L1.8 8.8C1.6 9 1.6 9.2 1.8 9.4C1.8 9.4 1.9 9.5 2 9.5C2.1 9.5 2.2 9.5 2.3 9.4L5.8 6L6.8 6.9C6.8 6.9 6.9 7 7 7C7.1 7 7.2 7 7.3 6.9L8.3 6L11.8 9.4C11.9 9.5 12 9.5 12.1 9.5C12.2 9.5 12.3 9.5 12.4 9.4C12.5 9.2 12.5 9 12.4 8.8L8.8 5.4Z\" fill=\"white\"><\/path>\n<\/svg>",
+              "title3": "service@z-homliving.com"
+            }
+          }
+        },
+        "block_order": [
+          "724b51bb-7c9e-47ae-8765-49da8d1da146",
+          "fd40794f-dc97-41f1-9d08-f3452a4aff15",
+          "f85f3b04-5c49-4062-a30a-b231d6151728"
+        ],
+        "settings": {
+          "footer_link_list": "footer",
+          "copyright": "2022 Copyright by Z-HOM"
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "show_collection_image": false,
+          "collection_sort_enable": false,
+          "collection_tags_enable": false,
+          "collection_products_grid": "grid",
+          "product_vendor_enable": false
+        }
+      },
+      "1494860348200": {
+        "type": "featured-row",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/4.jpg",
+          "layout": "right",
+          "title": "带文本的图片",
+          "text": "<p>将大文本与图片配对，以便将焦点置于您选择的产品、产品系列或博客文章。添加有关可用性和样式的详细信息，甚至是提供评论。<\/p>",
+          "button_label": "",
+          "button_link": ""
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "product_vendor_enable": true,
+          "social_sharing_products": true,
+          "quantity_enabled": true,
+          "product_selector": "select",
+          "enable_payment_button": true,
+          "add_to_cart_button_size": "small",
+          "media_layout": "thumbnails",
+          "enable_image_zoom": true,
+          "enable_video_looping": true
+        }
+      },
+      "1496177901425": {
+        "type": "advanced-content",
+        "blocks": {
+          "1496177901425-0": {
+            "type": "html",
+            "settings": {
+              "code": "<div style=\"width:745px;text-align: center; margin: 0 auto;\">This text can be used to share information about your brand with customers.<\/div>",
+              "width": "100%",
+              "alignment": "top-middle"
+            }
+          }
+        },
+        "block_order": [
+          "1496177901425-0"
+        ],
+        "settings": {}
+      },
+      "165327129250042798": {
+        "type": "featured-collections",
+        "blocks": {
+          "fe67df8d-b41b-4160-aa3b-f478168289ec": {
+            "type": "images",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/1.jpg"
+            }
+          },
+          "65bcd056-3d79-4b57-b6bd-750c136f12c4": {
+            "type": "images",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/2.jpg"
+            }
+          },
+          "d01661fd-8834-4b1a-ad52-903b5e739412": {
+            "type": "images",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/3.jpg"
+            }
+          },
+          "4b2c05a0-7416-4b59-bae5-622efec38a6c": {
+            "type": "images",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/3.jpg"
+            }
+          },
+          "ea1317b0-00e5-4767-ad5b-54526cfb37e7": {
+            "type": "images",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/2.jpg"
+            }
+          }
+        },
+        "block_order": [
+          "fe67df8d-b41b-4160-aa3b-f478168289ec",
+          "65bcd056-3d79-4b57-b6bd-750c136f12c4",
+          "d01661fd-8834-4b1a-ad52-903b5e739412",
+          "4b2c05a0-7416-4b59-bae5-622efec38a6c",
+          "ea1317b0-00e5-4767-ad5b-54526cfb37e7"
+        ],
+        "settings": {
+          "title": "产品系列列表"
+        }
+      },
+      "product-recommendations": {
+        "type": "product-recommendations",
+        "settings": {
+          "show_product_recommendations": true,
+          "heading": "您可能还喜欢"
+        }
+      },
+      "photo": {
+        "type": "photo",
+        "settings": {}
+      },
+      "product-video": {
+        "type": "product-video",
+        "settings": {
+          "video_id": "taJ60kskkns"
+        }
+      }
+    },
+    "content_for_index": [
+      "slideshow",
+      "1496177901425",
+      "featured-products",
+      "1494860348200",
+      "165327129250042798",
+      "newsletter"
+    ]
+  },
+  "presets": {
+    "Classic": {
+      "checkout_accent_color": "#a26b25",
+      "checkout_button_color": "#000000",
+      "checkout_error_color": "e32c2b",
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "show_announcement": true
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "slide",
+              "settings": {}
+            },
+            "slideshow-1": {
+              "type": "slide",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {}
+        },
+        "featured-content": {
+          "type": "featured-content",
+          "settings": {
+            "section_title": "",
+            "text_size": "large"
+          }
+        },
+        "featured-products": {
+          "type": "featured-products",
+          "settings": {
+            "collection_products_grid": "grid"
+          }
+        },
+        "featured-product": {
+          "type": "featured-product",
+          "settings": {}
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {}
+        },
+        "photo": {
+          "type": "photo",
+          "settings": {}
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "featured-content",
+        "featured-products",
+        "featured-product",
+        "newsletter",
+        "photo"
+      ]
+    },
+    "Playful": {
+      "color_body_bg": "#ffffff",
+      "color_body_text": "#565656",
+      "color_borders": "#5dd2b4",
+      "color_button_text": "#ffffff",
+      "color_primary": "#7737BD",
+      "color_secondary": "#058677",
+      "color_product_background": "#fff4f6",
+      "color_sale_tag": "#e80970",
+      "color_input": "#f6f6f6",
+      "color_newsletter": "#bde9f2",
+      "color_drawer_background": "#360f5f",
+      "color_drawer_text": "#ffffff",
+      "color_drawer_border": "#50297a",
+      "color_drawer_button": "#7737BD",
+      "color_drawer_button_text": "#ffffff",
+      "color_headings": "#321863",
+      "type_header_family": "quicksand_n7",
+      "type_header_base_size": "38px",
+      "type_header_border_thickness": "1px",
+      "type_accent_family": "roboto_n7",
+      "type_accent_transform": true,
+      "type_accent_spacing": true,
+      "type_accent_subheadings": false,
+      "type_base_family": "helvetica_n4",
+      "type_base_size": "17px",
+      "type_base_italize_titles": false,
+      "cart_type": "drawer",
+      "cart_notes_enable": true,
+      "social_facebook_link": "",
+      "social_twitter_link": "",
+      "social_pinterest_link": "",
+      "social_instagram_link": "",
+      "social_snapchat_link": "",
+      "social_google_plus_link": "",
+      "social_tumblr_link": "",
+      "social_youtube_link": "",
+      "social_vimeo_link": "",
+      "social_fancy_link": "",
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "favicon": "",
+      "checkout_header_image": "",
+      "checkout_logo_image": "",
+      "checkout_logo_position": "left",
+      "checkout_logo_size": "small",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#ffffff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#fff4f6",
+      "checkout_heading_font": "Helvetica Neue",
+      "checkout_body_font": "Roboto",
+      "checkout_accent_color": "#7737BD",
+      "checkout_button_color": "#7737BD",
+      "checkout_error_color": "#f01130",
+      "checkout_banner_background_color": "#fff",
+      "checkout_call_to_action_color": "#a26b25",
+      "checkout_use_header_image": false,
+      "collection_products_grid": "collage",
+      "customer_layout": "customer_area",
+      "favicon_enable": false,
+      "product_vendor_enable": false,
+      "social_sharing_style": "clean",
+      "sections": {
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "1495823280244": {
+              "type": "slide",
+              "settings": {
+                "slide_text_color": "#ffffff",
+                "slide_button_label_color": "#003B34",
+                "slide_button_background_color": "#84D1B2"
+              }
+            }
+          },
+          "block_order": [
+            "1495823280244"
+          ],
+          "settings": {
+            "hero_home_auto": false,
+            "home_hero_auto_speed": 5
+          }
+        },
+        "featured-products": {
+          "type": "featured-products",
+          "settings": {
+            "home_featured_products": "frontpage",
+            "collection_products_grid": "collage"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {}
+        },
+        "header": {
+          "type": "header",
+          "settings": {
+            "logo_max_width": 60,
+            "search": "modal",
+            "main_menu_link_list": "main-menu",
+            "show_announcement": false,
+            "color_bg": "#290c49",
+            "color_text": "#ffffff"
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "footer_link_list": "footer"
+          }
+        },
+        "collection-template": {
+          "type": "collection-template",
+          "settings": {
+            "collection_tags_enable": false,
+            "collection_products_grid": "grid",
+            "product_vendor_enable": false
+          }
+        },
+        "1494860348200": {
+          "type": "featured-row",
+          "settings": {
+            "layout": "right"
+          }
+        },
+        "1494894035034": {
+          "type": "featured-row",
+          "settings": {
+            "layout": "left"
+          }
+        },
+        "product-template": {
+          "type": "product-template",
+          "settings": {
+            "product_vendor_enable": false,
+            "social_sharing_products": true,
+            "enable_image_zoom": false,
+            "enable_video_looping": false
+          }
+        },
+        "1496078102297": {
+          "type": "advanced-content",
+          "blocks": {
+            "1496078102297-0": {
+              "type": "html",
+              "settings": {
+                "code": "<div style=\"text-align:center;\">\n<h1 class=\"h1\">Use HTML to format your text so it can be easily read.<\/h1>This text can be used to share information about your brand with customers.<\/div>",
+                "width": "100%",
+                "alignment": "top-middle"
+              }
+            }
+          },
+          "block_order": [
+            "1496078102297-0"
+          ],
+          "settings": {}
+        },
+        "1496177901425": {
+          "type": "advanced-content",
+          "blocks": {
+            "1496177901425-0": {
+              "type": "html",
+              "settings": {
+                "code": "<div style=\"width:745px;text-align: center; margin: 0 auto;\">This text can be used to share information about your brand with customers.<\/div>",
+                "width": "100%",
+                "alignment": "top-middle"
+              }
+            }
+          },
+          "block_order": [
+            "1496177901425-0"
+          ],
+          "settings": {}
+        },
+        "photo": {
+          "type": "photo",
+          "settings": {}
+        }
+      },
+      "content_for_index": [
+        "slideshow",
+        "1496177901425",
+        "featured-products",
+        "newsletter",
+        "1496078102297",
+        "1494860348200",
+        "1494894035034",
+        "photo"
+      ]
+    }
+  }
+}

@@ -1,0 +1,540 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Brooklyn",
+    "theme_author": "Shopify",
+    "theme_version": "17.7.1",
+    "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/using-themes\/themes-by-shopify\/brooklyn",
+    "theme_support_url": "https:\/\/support.shopify.com\/"
+  },
+  {
+    "name": {
+      "zh-CN": "颜色"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "zh-CN": "通用"
+        }
+      },
+      {
+        "type": "color",
+        "id": "color_body_bg",
+        "label": {
+          "zh-CN": "背景"
+        },
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_headings",
+        "label": {
+          "zh-CN": "标题"
+        },
+        "default": "#1f2021"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": {
+          "zh-CN": "正文文本"
+        },
+        "default": "#1f2021"
+      },
+      {
+        "type": "color",
+        "id": "color_borders",
+        "label": {
+          "zh-CN": "线条颜色"
+        },
+        "default": "#1f2021"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": {
+          "zh-CN": "按钮标签"
+        },
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": {
+          "zh-CN": "按钮"
+        },
+        "default": "#1f2021"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": {
+          "zh-CN": "链接和主题"
+        },
+        "default": "#a56600"
+      },
+      {
+        "type": "color",
+        "id": "color_product_background",
+        "label": {
+          "zh-CN": "产品背景"
+        },
+        "default": "#f6f6f6"
+      },
+      {
+        "type": "color",
+        "id": "color_sale_tag",
+        "label": {
+          "zh-CN": "销售标签"
+        },
+        "default": "#a56600"
+      },
+      {
+        "type": "color",
+        "id": "color_input",
+        "label": {
+          "zh-CN": "表单字段"
+        },
+        "default": "#f6f6f6"
+      },
+      {
+        "type": "color",
+        "id": "color_newsletter",
+        "label": {
+          "zh-CN": "新闻通讯和表背景"
+        },
+        "default": "#f6f6f6"
+      },
+      {
+        "type": "header",
+        "content": {
+          "zh-CN": "抽屉"
+        }
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_background",
+        "label": {
+          "zh-CN": "背景"
+        },
+        "default": "#1f2021"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_text",
+        "label": {
+          "zh-CN": "文本"
+        },
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_border",
+        "label": {
+          "zh-CN": "线条和边框"
+        },
+        "default": "#1f2021"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_button",
+        "label": {
+          "zh-CN": "按钮"
+        },
+        "default": "#a56600"
+      },
+      {
+        "type": "color",
+        "id": "color_drawer_button_text",
+        "label": {
+          "zh-CN": "按钮文字"
+        },
+        "default": "#ffffff"
+      }
+    ]
+  },
+  {
+    "name": {
+      "zh-CN": "版式"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "zh-CN": "标题"
+        }
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_family",
+        "label": {
+          "zh-CN": "字体"
+        },
+        "default": "old_standard_tt_n4"
+      },
+      {
+        "type": "select",
+        "id": "type_header_base_size",
+        "label": {
+          "zh-CN": "基本尺寸"
+        },
+        "default": "30px",
+        "options": [
+          {
+            "value": "26px",
+            "label": {
+              "zh-CN": "26 px"
+            }
+          },
+          {
+            "value": "28px",
+            "label": {
+              "zh-CN": "28 px"
+            }
+          },
+          {
+            "value": "30px",
+            "label": {
+              "zh-CN": "30 px"
+            }
+          },
+          {
+            "value": "32px",
+            "label": {
+              "zh-CN": "32 px"
+            }
+          },
+          {
+            "value": "34px",
+            "label": {
+              "zh-CN": "34 px"
+            }
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "type_header_border_thickness",
+        "label": {
+          "zh-CN": "下划线厚度"
+        },
+        "options": [
+          {
+            "value": "1px",
+            "label": {
+              "zh-CN": "浅色"
+            }
+          },
+          {
+            "value": "2px",
+            "label": {
+              "zh-CN": "中等"
+            }
+          },
+          {
+            "value": "3px",
+            "label": {
+              "zh-CN": "粗体"
+            }
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": {
+          "zh-CN": "强调文本"
+        },
+        "info": {
+          "zh-CN": "菜单、按钮和幻灯片副标题"
+        }
+      },
+      {
+        "type": "font_picker",
+        "id": "type_accent_family",
+        "label": {
+          "zh-CN": "字体"
+        },
+        "default": "montserrat_n6"
+      },
+      {
+        "type": "checkbox",
+        "id": "type_accent_transform",
+        "label": {
+          "zh-CN": "大写文本"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "type_accent_spacing",
+        "label": {
+          "zh-CN": "隔开字母"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "type_accent_subheadings",
+        "label": {
+          "zh-CN": "使用强调文本作为副标题"
+        },
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": {
+          "zh-CN": "正文文本",
+          "zh-TW": "內文"
+        }
+      },
+      {
+        "type": "font_picker",
+        "id": "type_base_family",
+        "label": {
+          "zh-CN": "字体"
+        },
+        "default": "arapey_n4"
+      },
+      {
+        "type": "select",
+        "id": "type_base_size",
+        "label": {
+          "zh-CN": "基本尺寸"
+        },
+        "default": "16px",
+        "options": [
+          {
+            "value": "14px",
+            "label": {
+              "zh-CN": "14 px"
+            }
+          },
+          {
+            "value": "15px",
+            "label": {
+              "zh-CN": "15 px"
+            }
+          },
+          {
+            "value": "16px",
+            "label": {
+              "zh-CN": "16 px"
+            }
+          },
+          {
+            "value": "17px",
+            "label": {
+              "zh-CN": "17 px"
+            }
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "type_base_italize_titles",
+        "label": {
+          "zh-CN": "将标题、块引用、下拉链接、评论作者姓名和日期设置为斜体。"
+        },
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": {
+      "zh-CN": "购物车页面"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "options": [
+          {
+            "value": "page",
+            "label": {
+              "zh-CN": "页面"
+            }
+          },
+          {
+            "value": "drawer",
+            "label": {
+              "zh-CN": "抽屉"
+            }
+          }
+        ],
+        "label": {
+          "zh-CN": "购物车类型"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": {
+          "zh-CN": "启用订单备注"
+        }
+      }
+    ]
+  },
+  {
+    "name": {
+      "zh-CN": "社交媒体"
+    },
+    "settings": [
+      {
+        "type": "header",
+        "content": {
+          "zh-CN": "账户"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": {
+          "zh-CN": "Facebook"
+        },
+        "info": {
+          "zh-CN": "https:\/\/www.facebook.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": {
+          "zh-CN": "Twitter"
+        },
+        "info": {
+          "zh-CN": "https:\/\/twitter.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": {
+          "zh-CN": "Pinterest"
+        },
+        "info": {
+          "zh-CN": "https:\/\/www.pinterest.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": {
+          "zh-CN": "Instagram",
+          "zh-TW": "Instagram"
+        },
+        "info": {
+          "zh-CN": "https:\/\/instagram.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": {
+          "zh-CN": "Snapchat"
+        },
+        "info": {
+          "zh-CN": "https:\/\/www.snapchat.com\/add\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_google_plus_link",
+        "label": {
+          "zh-CN": "Google Plus"
+        },
+        "info": {
+          "zh-CN": "https:\/\/plus.google.com\/+shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": {
+          "zh-CN": "Tumblr"
+        },
+        "info": {
+          "zh-CN": "http:\/\/shopify.tumblr.com"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": {
+          "zh-CN": "YouTube"
+        },
+        "info": {
+          "zh-CN": "https:\/\/www.youtube.com\/user\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": {
+          "zh-CN": "Vimeo"
+        },
+        "info": {
+          "zh-CN": "https:\/\/vimeo.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_fancy_link",
+        "label": {
+          "zh-CN": "Fancy"
+        },
+        "info": {
+          "zh-CN": "http:\/\/fancy.com\/Shopify"
+        }
+      },
+      {
+        "type": "header",
+        "content": {
+          "zh-CN": "共享选项"
+        }
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": {
+          "zh-CN": "在 Facebook 上共享"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": {
+          "zh-CN": "在 Twitter 上发推文"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": {
+          "zh-CN": "固定在 Pinterest 上"
+        },
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": {
+      "zh-CN": "网站图标",
+      "zh-TW": "Favicon"
+    },
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": {
+          "zh-CN": "网站图标图片"
+        },
+        "info": {
+          "zh-CN": "将缩小到 32 x 32px"
+        }
+      }
+    ]
+  }
+]

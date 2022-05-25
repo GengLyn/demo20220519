@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="left">
+    <div class="slider-for">
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/3.jpg?v=1653285088"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/2.jpg?v=1653285085"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/3.jpg?v=1653285088"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/2.jpg?v=1653285085"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/3.jpg?v=1653285088"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/2.jpg?v=1653285085"/></div>
+    </div>
+   <div class="slider-nav">
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/3.jpg?v=1653285088"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/2.jpg?v=1653285085"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/3.jpg?v=1653285088"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/2.jpg?v=1653285085"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/3.jpg?v=1653285088"/></div>
+      <div><img src="https://cdn.shopify.com/s/files/1/0644/2077/4127/files/2.jpg?v=1653285085"/></div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+.left{
+  width:100%;
+  text-align:center;
+}
+{% endstylesheet %}
+
+{% javascript %}
+$('.slider-for').slick({
+      arrows: false,
+  		infinite: true,
+  		slidesToShow: 1,
+  		slidesToScroll: 1,
+      asNavFor: '.slider-nav',
+});
+$('.slider-nav').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  asNavFor: '.slider-for',
+  dots: true,
+  centerMode: true,
+  focusOnSelect: true
+});
+{% endjavascript %}

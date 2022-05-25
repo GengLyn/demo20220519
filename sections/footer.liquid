@@ -1,0 +1,251 @@
+{{ 'footer.scss.css' | asset_url | stylesheet_tag }}
+<footer class="site-footer small--text-center" role="contentinfo" data-section-id="{{ section.id }}"
+  data-section-type="footer-section">
+  <div class="medium-down--hide">
+    <div class="footer-container">
+      {% for block in section.blocks %}
+      <div class="item">
+        <div class="title">{{block.settings.title}}</div>
+        {% if block.type == "text" %}
+        {% for link in linklists[section.settings.footer_link_list].links %}
+        {% if link.title == block.settings.title %}
+        {% for childLink in link.links %}
+        <div class="link"><a href="{{childLink.url}}">{{childLink.title}}</a></div>
+        {% endfor %}
+        {% endif %}
+        {%endfor%}
+        {%else%}
+        <div class="link"><span class="icon">{{block.settings.icon1}}</span>{{block.settings.title1}}</div>
+        <div class="link"><span class="icon">{{block.settings.icon2}}</span>{{block.settings.title2}}</div>
+        <div class="link"><span class="icon">{{block.settings.icon3}}</span>{{block.settings.title3}}</div>
+        {%endif%}
+      </div>
+      {%endfor%}
+    </div>
+    <div class="line"></div>
+    <div class="bottom">
+      <div class="left">{{section.settings.copyright}}</div>
+      {% comment %}
+      Determine whether there are social links
+      {% endcomment %}
+      {% assign footer_social_enable = false %}
+      {% if
+      settings.social_twitter_link != blank
+      or settings.social_facebook_link != blank
+      or settings.social_pinterest_link != blank
+      or settings.social_google_plus_link != blank
+      or settings.social_instagram_link != blank
+      or settings.social_tumblr_link != blank
+      or settings.social_youtube_link != blank
+      or settings.social_vimeo_link != blank
+      or settings.social_fancy_link != blank
+      or settings.social_snapchat_link != blank
+      %}
+      {% assign footer_social_enable = true %}
+      {% endif %}
+      {% if footer_social_enable %}
+      <div class="right">
+        {% if settings.social_instagram_link != blank %}
+        <a href="{{ settings.social_instagram_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+          <span class="icon icon-instagram" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+        {% if settings.social_twitter_link != blank %}
+        <a href="{{ settings.social_twitter_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+          <span class="icon icon-twitter" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+        {% if settings.social_pinterest_link != blank %}
+        <a href="{{ settings.social_pinterest_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+          <span class="icon icon-pinterest" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+
+        {% if settings.social_facebook_link != blank %}
+        <a href="{{ settings.social_facebook_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+          <span class="icon icon-facebook" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+        {% if settings.social_snapchat_link != blank %}
+        <a href="{{ settings.social_snapchat_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+          <span class="icon icon-snapchat" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+        {% if settings.social_google_plus_link != blank %}
+        <a href="{{ settings.social_google_plus_link | escape }}" rel="publisher"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Google Plus' }}">
+          <span class="icon icon-google_plus" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+        {% if settings.social_tumblr_link != blank %}
+        <a href="{{ settings.social_tumblr_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+          <span class="icon icon-tumblr" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+        {% if settings.social_youtube_link != blank %}
+        <a href="{{ settings.social_youtube_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+          <span class="icon icon-youtube" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+        {% if settings.social_vimeo_link != blank %}
+        <a href="{{ settings.social_vimeo_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+          <span class="icon icon-vimeo" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+        {% if settings.social_fancy_link != blank %}
+        <a href="{{ settings.social_fancy_link | escape }}"
+          title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Fancy' }}">
+          <span class="icon icon-fancy" aria-hidden="true"></span>
+        </a>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+</footer>
+{% schema %}
+  {
+    "name": {
+      "zh-CN": "页脚"
+    },
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_link_list",
+        "label": {
+          "zh-CN": "菜单"
+        },
+        "default": "footer",
+        "info": {
+          "zh-CN":"如果链接过长，菜单将折叠成菜单按钮。[了解详细信息](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)"
+        }
+      },
+      {
+        "type": "text",
+        "id": "copyright",
+        "label": {
+          "zh-CN": "版权"
+        },
+        "default": "2022 Copyright by Z-HOM",
+        "info": {
+          "zh-CN": "版权信息"
+        }
+      }
+    ],
+    "max_blocks": 9,
+    "blocks": [
+      {
+        "type": "text",
+        "name": "链接",
+        "settings":[
+          {
+            "type": "text",
+            "id": "title",
+            "label": {
+              "zh-CN": "标题"
+            },
+            "default": {
+              "zh-CN": "标题"
+            }
+          },
+          {
+            "type": "link_list",
+            "id": "footer_link_list",
+            "label": {
+              "zh-CN": "菜单"
+            },
+            "default": "footer",
+            "info": {
+              "zh-CN":"如果链接过长，菜单将折叠成菜单按钮。[了解详细信息](https://help.shopify.com/manual/using-themes/themes-by-shopify/brooklyn#navigation-tips-tips-specific)"
+            }
+          }
+        ]
+      },
+      {
+        "type": "text1",
+        "name": "信息",
+        "settings":[
+          {
+            "type": "text",
+            "id": "title",
+            "label": {
+              "zh-CN": "标题"
+            },
+            "default": {
+              "zh-CN": "标题"
+            }
+          },
+          {
+            "type": "html",
+            "id": "icon1",
+            "label": {
+              "zh-CN": "位置图标"
+            },
+            "default": {
+              "zh-CN": "图标svg代码"
+            }
+          },
+          {
+            "type": "text",
+            "id": "title1",
+            "label": {
+              "zh-CN": "位置"
+            },
+            "default": {
+              "zh-CN": "Hahnenstr. 47-49, Köln,50667 Germany"
+            }
+          },
+          {
+            "type": "html",
+            "id": "icon2",
+            "label": {
+              "zh-CN": "电话图标"
+            },
+            "default": {
+              "zh-CN": "图标svg代码"
+            }
+          },
+          {
+            "type": "text",
+            "id": "title2",
+            "label": {
+              "zh-CN": "电话"
+            },
+            "default": {
+              "zh-CN": "49 221-8018 0600"
+            }
+          },
+          {
+            "type": "html",
+            "id": "icon3",
+            "label": {
+              "zh-CN": "邮箱图标"
+            },
+            "default": {
+              "zh-CN": "图标svg代码"
+            }
+          },
+          {
+            "type": "text",
+            "id": "title3",
+            "label": {
+              "zh-CN": "邮箱"
+            },
+            "default": {
+              "zh-CN": "service@z-homliving.com"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

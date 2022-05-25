@@ -1,0 +1,85 @@
+<div id="video-placeholder"></div>
+<div id="play" class="btn">play</div>
+<div id="stop" class="btn">stop</div>
+<input id="video_id" value="{{section.settings.video_id}}" hidden>
+<div>
+	volume:<input id="volume-input" type="number" max="100" min="0" />
+</div>
+{% schema %}
+  {
+    "name": "product-video",
+    "settings": [
+		{
+			"type": "text",
+			"id": "video_id",
+			"label": {
+				"zh-CN": "video id"
+			},
+			"default": "FG0fTKAqZ5g",
+			"info": {
+				"zh-CN": "video id"
+			}
+}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+#video-placeholder{
+	width:600px;
+	height:400px;
+}
+{% endstylesheet %}
+
+{% javascript %}
+var player,
+    time_update_interval = 0;
+var video_id = $("#video_id").val();
+console.log(video_id)
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('video-placeholder', {
+        width: 600,
+        height: 400,
+        videoId: video_id,
+        playerVars: {
+            color: 'white',
+            playlist: 'taJ60kskkns,FG0fTKAqZ5g'
+        },
+        events: {
+            onReady: initialize
+        }
+    });
+}
+function initialize(){
+    // Update the controls on load
+    updateTimerDisplay();
+    updateProgressBar();
+
+    // Clear any old interval.
+    clearInterval(time_update_interval);
+
+    // Start interval to update elapsed time display and
+    // the elapsed part of the progress bar every second.
+    time_update_interval = setInterval(function () {
+        updateTimerDisplay();
+        updateProgressBar();
+    }, 1000);
+
+    $('#volume-input').val(Math.round(player.getVolume()));
+}
+onYouTubeIframeAPIReady();
+
+$("#play").on("click", function(){
+	console.log("play");
+	player.playVideo();
+});
+
+$("#stop").on("click", function(){
+	console.log("qweqwe") 
+	player.pauseVideo();
+});
+
+$('#volume-input').on('change', function () {
+    player.setVolume($(this).val());
+});
+{% endjavascript %}
