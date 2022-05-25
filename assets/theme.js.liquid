@@ -2816,7 +2816,6 @@ theme.Product = (function() {
         this.showVariantMedia.bind(this)
       );
       console.log("------------------------------------");
-      console.log($(this.selectors.productMediaGroup));
       $(this.selectors.productMediaGroup).slick({
         arrows: false,
         infinite: true,
@@ -2826,16 +2825,20 @@ theme.Product = (function() {
       });
       console.log($('.product-single__thumbnails'))
       $('.product-single__thumbnails').slick({
-        arrows: false,
+        arrows: true,
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 1,
         asNavFor: '.product-single__media-group',
+        centerMode: true,
+        focusOnSelect: true,
+        prevArrow: $('.slick__arrow--previous'),
+        nextArrow: $('.slick__arrow--next'),
       });
       console.log("------------------------------------");
     },
 
-    initBreakpoints: function() {
+    initBreakpoints: function() {/* 初始化分界点 */
       var self = this;
       var $container = self.$container;
       self.zoomType = $container.data('image-zoom-type');
@@ -3098,10 +3101,10 @@ theme.Product = (function() {
       });
     },
 
-    createMediaCarousel: function() {
-      if (
+    createMediaCarousel: function() {// 创建媒体传送带
+      if (//[data-product-single-media-flex-wrapper]
         $(this.selectors.productMediaFlexWrapper).length < 2 ||
-        !$(this.selectors.productMediaGroup, this.$container) ||
+        !$(this.selectors.productMediaGroup, this.$container) ||//[data-product-single-media-group]
         this.isCarouselActive
       ) {
         return;
@@ -3113,28 +3116,30 @@ theme.Product = (function() {
         width: 20
       };
 
-      var focusTrapped = false;
+      var focusTrapped = false;// 焦点捕获
       $(this.selectors.productMediaFlexWrapper, this.$container).on(
         'focusin',
         function() {
-          if (focusTrapped) {
+          if (focusTrapped) {// 焦点被捕获退出
             return;
           }
+          // [data-product-single-media-group]大图片展示框
           this.trapCarouselFocus($(this.selectors.productMediaGroup));
           focusTrapped = true;
         }.bind(this)
       );
+      // 大图片展示框绑定slick，绑定事件
       $(this.selectors.productMediaGroup, this.$container)
-        .slick(this.slickSettings)
+        .slick(this.slickSettings)// 绑定slick
         .on(
-          'beforeChange',
+          'beforeChange',// 改变前的事件
           function(event, slick, currentSlide, nextSlide) {
-            this.updateCarouselDotsA11y(nextSlide);
-            this.translateCarouselDots(slick.slideCount, nextSlide, dotStyle);
+            this.updateCarouselDotsA11y(nextSlide);// 更新传送带
+            this.translateCarouselDots(slick.slideCount, nextSlide, dotStyle);// 移动传送带的点
           }.bind(this)
         )
         .on(
-          'afterChange',
+          'afterChange',// 改变后的事件
           function(event, slick) {
             this.trapCarouselFocus(slick.$slider);
             // Let's do this after changing slides
@@ -3159,20 +3164,21 @@ theme.Product = (function() {
         true
       );
     },
-
+    // 更新传送带
     updateCarouselDotsA11y: function(nextSlide) {
+      // 所有传送带的点
       var $dotLinks = $(this.selectors.slickDots).find('a');
-      $dotLinks
+      $dotLinks// 移除所有点属性 aria-current
         .removeAttr('aria-current')
-        .eq(nextSlide)
-        .attr('aria-current', 'true');
+        .eq(nextSlide)// 找到下一个的点
+        .attr('aria-current', 'true');// 添加 aria-current属性
     },
-
+    // 移动传送带
     translateCarouselDots: function(totalSlides, nextSlide, dotStyle) {
-      if (totalSlides <= dotStyle.max) {
+      if (totalSlides <= dotStyle.max) {// 当前数量小于最大值，退出
         return;
       }
-      var calculatedTranslateDistance = 0;
+      var calculatedTranslateDistance = 0;// 计算移动的距离
 
       var maxTranslateDistance = (totalSlides - dotStyle.max) * dotStyle.width;
       if (nextSlide >= dotStyle.max - 1) {
@@ -3189,7 +3195,7 @@ theme.Product = (function() {
         .find('ul')
         .css('transform', 'translateX(-' + calculatedTranslateDistance + 'px)');
     },
-
+    // 捕获传送带焦点
     trapCarouselFocus: function($slider, removeFocusTrap) {
       if (!$slider) return;
 
