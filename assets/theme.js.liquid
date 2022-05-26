@@ -267,7 +267,7 @@ theme.Sections.prototype = _.assignIn({}, theme.Sections.prototype, {
 });
 
 /**
- * Currency Helpers
+ * Currency Helpers 货币
  * -----------------------------------------------------------------------------
  * A collection of useful functions that help with currency formatting
  *
@@ -481,6 +481,7 @@ slate.Variants = (function () {
     this.enableHistoryState = options.enableHistoryState;
     this.currentVariant = this._getVariantFromOptions();// 获取变体表单操作后的变体
 
+    // 绑定事件，监听选项改变
     $(this.singleOptionSelector, this.$container).on(
       'change',
       this._onSelectChange.bind(this)// 绑定选择改变事件
@@ -495,7 +496,7 @@ slate.Variants = (function () {
      * @return {array} options - Values of currently selected variants
      */
     _getCurrentOptions: function () { // 获取当前选项
-      var currentOptions = _.map(
+      var currentOptions = _.map(// 遍历获取所有选项
         $(this.singleOptionSelector, this.$container),
 
         function (element) {
@@ -507,15 +508,13 @@ slate.Variants = (function () {
             if ($element[0].checked) {
               currentOption.value = $element.val();
               currentOption.index = $element.data('index');
-
-              return currentOption;
+              return currentOption;// 返回当前选项
             } else {
               return false;
             }
           } else {
             currentOption.value = $element.val();// 选项值
             currentOption.index = $element.data('index');// 选项下标
-
             return currentOption;
           }
         }
@@ -524,7 +523,7 @@ slate.Variants = (function () {
       // remove any unchecked input values if using radio buttons or checkboxes
       // 如果使用单选按钮或复选框，请删除所有未选中的输入值
       currentOptions = _.compact(currentOptions);
-
+      // 返回当前所有选项
       return currentOptions;
     },
 
@@ -534,16 +533,15 @@ slate.Variants = (function () {
      * @param  {array} selectedValues - Values of variant inputs
      * @return {object || undefined} found - Variant object from product.variants
      */
-    _getVariantFromOptions: function () {// 获取变体表单数据
+    _getVariantFromOptions: function () {// 获取变体数据
       var selectedValues = this._getCurrentOptions();// 当前选择的
       var variants = this.product.variants;// 获取该商品所有变体
-
+      // 遍历找出相同的变体
       var found = _.find(variants, function (variant) {
-        return selectedValues.every(function (values) {// 遍历找出相同的变体
+        return selectedValues.every(function (values) {
           return _.isEqual(variant[values.index], values.value);
         });
       });
-
       return found;// 返回找到的结果
     },
 
@@ -551,8 +549,9 @@ slate.Variants = (function () {
      * Event handler for when a variant input changes.
      * 变量输入更改时的事件处理程序。
      */
+    // 选项改变
     _onSelectChange: function () {// 商品选项改变
-      var variant = this._getVariantFromOptions();
+      var variant = this._getVariantFromOptions();// 重新调用获取变体数据
 
       this.$container.trigger({// 发布消息变体改变
         type: 'variantChange',
@@ -569,8 +568,8 @@ slate.Variants = (function () {
       this._updateSKU(variant);// 更新更新库存
       this.currentVariant = variant; // 将当前变体更改为改变后的
 
-      if (this.enableHistoryState) {
-        this._updateHistoryState(variant);
+      if (this.enableHistoryState) {// 允许历史状态
+        this._updateHistoryState(variant);// 更新历史状态
       }
     },
 
@@ -580,7 +579,8 @@ slate.Variants = (function () {
      * @param  {object} variant - Currently selected variant
      * @return {event}  variantMediaChange
      */
-    _updateMedia: function (variant) {// 更新媒体
+    // 更新媒体
+    _updateMedia: function (variant) {
       var variantMedia = variant.featured_media || {};// 变体特色媒体
       var currentVariantMedia = this.currentVariant.featured_media || {};// 当前变体媒体
 
@@ -606,14 +606,14 @@ slate.Variants = (function () {
      * @param  {object} variant - Currently selected variant
      * @return {event} variantPriceChange
      */
-    _updatePrice: function (variant) {// 更新价格
+    // 更新价格
+    _updatePrice: function (variant) {
       if (// 价格相等退出
         variant.price === this.currentVariant.price &&
         variant.compare_at_price === this.currentVariant.compare_at_price
       ) {
         return;
       }
-
       this.$container.trigger({// 发布变体价格改变消息
         type: 'variantPriceChange',
         variant: variant
@@ -626,11 +626,11 @@ slate.Variants = (function () {
      * @param  {object} variant - Currently selected variant
      * @return {event} variantSKUChange
      */
-    _updateSKU: function (variant) { // 更新库存
+    // 更新库存
+    _updateSKU: function (variant) { 
       if (variant.sku === this.currentVariant.sku) { // 库存相同退出
         return;
       }
-
       this.$container.trigger({// 发布消息库存改变
         type: 'variantSKUChange',
         variant: variant
@@ -643,7 +643,8 @@ slate.Variants = (function () {
      * @param  {variant} variant - Currently selected variant
      * @return {k}         [description]
      */
-    _updateHistoryState: function (variant) { // 更新历史记录状态
+    // 更新历史记录状态
+    _updateHistoryState: function (variant) { 
       if (!history.replaceState || !variant) {// 不可替换和不存在变体 退出
         return;
       }
@@ -669,6 +670,7 @@ slate.Variants = (function () {
      * 更新变量更改的隐藏主选择
      * @param  {variant} variant - Currently selected variant
      */
+    // 更新主选择
     _updateMasterSelect: function (variant) {
       $(this.originalSelectorId, this.$container).val(variant.id);
     }
@@ -687,7 +689,7 @@ window.slate = window.slate || {};
  *
  * @namespace utils
  */
-
+// 工具
 slate.utils = {
   keyboardKeys: {
     TAB: 9,
@@ -2407,6 +2409,7 @@ theme.Disclosure = (function () {
   return Disclosure;
 })();
 
+// 主题产品模型
 theme.ProductModel = (function () {
   var modelJsonSections = {};
   var models = {};
@@ -2422,21 +2425,21 @@ theme.ProductModel = (function () {
   var classes = {
     viewInSpaceDisabled: 'product-single__view-in-space--disabled'
   };
-
+  // 初始化
   function init(modelViewerContainers, sectionId) {
     modelJsonSections[sectionId] = {
       loaded: false
     };
-
+    // 遍历模型视图容器
     modelViewerContainers.each(function (index) {
-      var $modelViewerContainer = $(this);
-      var mediaId = $modelViewerContainer.data('media-id');
+      var $modelViewerContainer = $(this);// 模型视图容器
+      var mediaId = $modelViewerContainer.data('media-id');// 媒体id
 
-      var $modelViewerElement = $(
+      var $modelViewerElement = $(// 模型查看器元素
         $modelViewerContainer.find('model-viewer')[0]
       );
-      var modelId = $modelViewerElement.data('model-id');
-
+      var modelId = $modelViewerElement.data('model-id');// 模型id
+      // ???
       if (index === 0) {
         var $xrButton = $modelViewerContainer
           .closest(selectors.productMediaGroupWrapper)
@@ -2455,16 +2458,16 @@ theme.ProductModel = (function () {
         $element: $modelViewerElement
       };
     });
-
+    // 加载功能
     window.Shopify.loadFeatures([
       {
         name: 'shopify-xr',
         version: '1.0',
-        onLoad: setupShopifyXr
+        onLoad: setupShopifyXr// 加载
       }
     ]);
 
-    if (models.length < 1) return;
+    if (models.length < 1) return;// 如果模型个数为0 退出
     window.Shopify.loadFeatures([
       {
         name: 'model-viewer-ui',
@@ -2472,96 +2475,108 @@ theme.ProductModel = (function () {
         onLoad: setupModelViewerUi
       }
     ]);
+    // 主题 库加载器 加载模型视图UI样式
     theme.LibraryLoader.load('modelViewerUiStyles');
   }
-
+  // 设置shopify Xr
   function setupShopifyXr(errors) {
     if (errors) return;
 
+    // window没有挂载shopifyXR
     if (!window.ShopifyXR) {
+      // document 监听 shopify_xr_initialized
       document.addEventListener('shopify_xr_initialized', function (event) {
-        if (event.detail.shopifyXREnabled) {
-          setupShopifyXr();
+        if (event.detail.shopifyXREnabled) {// 活动细节shopifyXREnabled为true
+          setupShopifyXr();// 设置shopifyXr
         } else {
+          // xrButton添加classes.viewInSpaceDisabled类
           $(selectors.xrButton).addClass(classes.viewInSpaceDisabled);
         }
       });
       return;
     }
-
+    // 循环modelJsonSections
     for (var sectionId in modelJsonSections) {
-      if (modelJsonSections.hasOwnProperty(sectionId)) {
-        var modelSection = modelJsonSections[sectionId];
-
-        if (modelSection.loaded) continue;
+      if (modelJsonSections.hasOwnProperty(sectionId)) {// modelJsonSections包含sectionId属性
+        var modelSection = modelJsonSections[sectionId];// 获取模型section
+        if (modelSection.loaded) continue;// 模型section已经加载 跳过执行下一个
         var $modelJson = $('#ModelJson-' + sectionId);
-
+        // window shopifyXr添加模型
         window.ShopifyXR.addModels(JSON.parse($modelJson.html()));
-        modelSection.loaded = true;
+        modelSection.loaded = true;// 模型section设为已加载
       }
     }
+    // 设置XR元素
     window.ShopifyXR.setupXRElements();
   }
-
+  // 设置模型查看器用户界面
   function setupModelViewerUi(errors) {
     if (errors) return;
-
+    // 遍历模型
     for (var key in models) {
       if (models.hasOwnProperty(key)) {
         var model = models[key];
         if (!model.modelViewerUi) {
+          // 创建模型视图器用户界面
           model.modelViewerUi = new Shopify.ModelViewerUI(model.$element);
         }
+        // 设置模型视图器监听器
         setupModelViewerListeners(model);
       }
     }
   }
-
+  // 设置模型查看器侦听器
   function setupModelViewerListeners(model) {
     var xrButton = xrButtons[model.sectionId];
-
+    // 获取产品媒体组
     var $productMediaGroup = model.$container.closest(
       selectors.productMediaGroup
     );
-
+    // 模型标签对象
     model.$element
+      // 绑定事件
       .on('shopify_model_viewer_ui_toggle_play', function () {
+        // 更新快速滑动
         theme.updateSlickSwipe($productMediaGroup, false);
       })
       .on('shopify_model_viewer_ui_toggle_pause', function () {
         theme.updateSlickSwipe($productMediaGroup, true);
       });
-
+    // 模型容器绑定事件 ???
     model.$container.on('mediaVisible', function () {
       xrButton.$element.attr('data-shopify-model3d-id', model.modelId);
       if (Modernizr.touch) return;
       model.modelViewerUi.play();
     });
-
+    
     model.$container
+      // 媒体隐藏
       .on('mediaHidden', function () {
         xrButton.$element.attr('data-shopify-model3d-id', xrButton.defaultId);
         model.modelViewerUi.pause();
       })
+      // xr加载
       .on('xrLaunch', function () {
         model.modelViewerUi.pause();
       });
   }
-
+  // 移除section模型
   function removeSectionModels(sectionId) {
-    for (var key in models) {
+    for (var key in models) {// 遍历模型组
       if (models.hasOwnProperty(key)) {
         var model = models[key];
         if (model.sectionId === sectionId) {
+          // 摧毁ui
           models[key].modelViewerUi.destroy();
-          delete models[key];
+          delete models[key];// 删除模型对象
         }
       }
     }
+    // 删除模型JsonSection数据
     delete modelJsonSections[sectionId];
   }
 
-  return {
+  return {// 返回数据
     init: init,
     removeSectionModels: removeSectionModels
   };
@@ -2719,7 +2734,7 @@ theme.ProductVideo = (function () {
 
 /* ================ Sections ================ */
 window.theme = window.theme || {};
-/* product-template */
+/* product-template 产品详情模板*/
 theme.Product = (function () {
   function Product(container) {
     var $window = $(window);// window全局变量
@@ -2786,6 +2801,7 @@ theme.Product = (function () {
       autoplay: true,
       autoplaySpeed: 2000,
       adaptiveHeight: true,
+      asNavFor: false,
       customPaging: function (slick, index) {// 自定义分页
         var slideA11yString = theme.strings.productSlideLabel
           .replace('[slide_number]', index + 1)
@@ -2838,7 +2854,7 @@ theme.Product = (function () {
     this.stringOverrides();// 字符串覆盖
     this.initProductVariant();// 初始化产品变体
     this.initStickyProductMeta();// 初始化粘性产品元
-    this.productThumbnailSwitch();// 产品缩略图开关
+    this.productThumbnailSwitch();// 产品缩略图选择
     this.initProductVideo();// 初始化产品视频
     this._initModelViewerLibraries();// 初始化模型查看器库
     this._initShopifyXrLaunch();// 初始化shopify登录发布
@@ -2847,7 +2863,7 @@ theme.Product = (function () {
       this.productMediaZoom();// 产品媒体缩放
     }
 
-    if (theme.settings.cartType === 'drawer') {// 购物车类型 抽屉
+    if (theme.settings.cartType === 'drawer') {// 购物车类型为抽屉类型
       ajaxCart.init({// 初始化异步购物车
         formSelector: '#AddToCartForm--' + sectionId,// 购物车表单选择器
         cartContainer: '#CartContainer',// 购物车容器
@@ -2857,8 +2873,10 @@ theme.Product = (function () {
       });
     }
 
-    $window
+    $window// 绑定事件
+      // 加载事件
       .on('load' + this.settings.namespace, theme.initStickyProductMeta)
+      // 窗口大小事件
       .on(
         'resize' + this.settings.namespace,
         theme.debounce(this.initStickyProductMeta, 150).bind(this)
@@ -2877,74 +2895,75 @@ theme.Product = (function () {
         product: this.productSingleObject// 产品
       };
 
-      this.variants = new slate.Variants(options);
+      this.variants = new slate.Variants(options);// 创建变体对象
       this.$container.on(// 监听变体改变消息
         'variantChange' + this.settings.namespace,
+        // 产品页面设置
         this.productPage.bind(this)
       );
       this.$container.on(// 监听变体媒体改变消息
         'variantMediaChange' + this.settings.namespace,
+        // 展示变体媒体
         this.showVariantMedia.bind(this)
       );
-      console.log("------------------------------------");
-      $(this.selectors.productMediaGroup).slick({
-        arrows: false,
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        asNavFor: '.product-single__thumbnails',
-      });
-      console.log($('.product-single__thumbnails'))
-      $('.product-single__thumbnails').slick({
-        arrows: true,
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        asNavFor: '.product-single__media-group',
-        centerMode: true,
-        focusOnSelect: true,
-        prevArrow: $('.slick__arrow--previous'),
-        nextArrow: $('.slick__arrow--next'),
-      });
-      console.log("------------------------------------");
+      
     },
-
-    initBreakpoints: function () {/* 初始化分界点 */
+    /* 初始化分界点 */
+    initBreakpoints: function () {
       var self = this;
       var $container = self.$container;
       self.zoomType = $container.data('image-zoom-type');
-
+      console.log("````````````````````````initBreakpoints");
+      console.log(theme.variables.mediaQuerySmall);
+      var flag = false;
+      // 查询页面主题大小设置
       enquire.register(theme.variables.mediaQuerySmall, {
-        match: function () {
+        match: function () {// 匹配小的
+          // 创建媒体缩放
+          console.log("match");
+          flag = true;
           self.createMediaCarousel();
-          if (self.zoomType) {
+          if (self.zoomType) { // 是否设置缩放
             if ($(self.selectors.productImageZoom).length) {
               // remove event handlers for product zoom on mobile
+              // 删除移动设备上产品缩放的事件处理程序
               $(self.selectors.productImageZoom).off();
             }
           }
         },
-        unmatch: function () {
-          self.destroyMediaCarousel();
-
-          if (self.zoomType) {
+        unmatch: function () { // 不匹配
+          console.log("not match");
+          flag = false
+          self.destroyMediaCarousel();// 摧毁传送带
+          if (self.zoomType) {// 是否缩放
             // reinit product zoom
+            // 重新初始化产品缩放
             self.productMediaZoom();
           }
         }
       });
+      console.log(flag)
+      if(!flag) {
+        self.destroyMediaCarousel();// 摧毁传送带
+        if (self.zoomType) {// 是否缩放
+          // reinit product zoom
+          // 重新初始化产品缩放
+          self.productMediaZoom();
+        }
+      }
     },
-
+    // 初始化模型查看器库
     _initModelViewerLibraries: function () {
-      if (!this.$container.data('has-model')) return;
-
+      if (!this.$container.data('has-model')) return;// 容器未设置模型退出
+      // 获取模型查看器标签
       var $modelViewerElements = $(
         this.selectors.productMediaTypeModel,
         this.$container
       );
+      // 主题产品模型初始化
       theme.ProductModel.init($modelViewerElements, this.settings.sectionId);
     },
-
+    // 初始化shopifyXr加载
     _initShopifyXrLaunch: function () {
       $(document).on(
         'shopify_xr_launch',
@@ -2960,7 +2979,7 @@ theme.Product = (function () {
         }.bind(this)
       );
     },
-
+    // 初始化产品视频
     initProductVideo: function () {
       var sectionId = this.settings.sectionId;
 
@@ -2969,15 +2988,14 @@ theme.Product = (function () {
         theme.ProductVideo.init($videoContainer, sectionId);
       });
     },
-
+    // 字符串覆盖
     stringOverrides: function () {
       // Override defaults in theme.strings with potential
       // template overrides
-
       theme.productStrings = theme.productStrings || {};
       $.extend(theme.strings, theme.productStrings);
     },
-
+    // 元素大小改变
     resizeElements: function () {
       $(this.selectors.productGridImages, this.$container).imagesLoaded(
         function () {
@@ -2987,7 +3005,7 @@ theme.Product = (function () {
         }
       );
     },
-    // 展示变体的缩放图
+    // 展示变体的媒体
     showVariantMedia: function (evt) {
       var variant = evt.variant;// 当前变体
       var variantMediaId =// 变体媒体id
@@ -3008,7 +3026,7 @@ theme.Product = (function () {
         this.setActiveThumbnail(variantMediaId);// 设置激活缩略图
       }
 
-      if (
+      if (// 主题大小为bpsamll，且产品存在
         theme.variables.bpSmall &&
         !this.$container.data('featured-product')
       ) {
@@ -3035,15 +3053,17 @@ theme.Product = (function () {
         // desktop view also.
         // 当移动视图上的媒体变量更新时，也会更新桌面视图。
         if (!this.isStackedLayout) {
-          this.switchMedia(variantMediaId);
+          this.switchMedia(variantMediaId);// 选择媒体
         }
       } else {
         if (this.isStackedLayout) {
           mediaIndex = $newMedia.closest('.slick-slide').index();
           // Scroll to/reorder media unless it's the first photo on load
+          // 滚动到/重新排序介质，除非它是加载的第一张照片
           if (mediaIndex !== 0 || theme.variables.productPageLoad) {
             if (theme.variables.productPageSticky) {
               // Scroll to variant media
+              // 滚动到不同的媒体
               $('html, body').animate(
                 {
                   scrollTop: $newMedia.offset().top
@@ -3052,6 +3072,7 @@ theme.Product = (function () {
               );
             } else {
               // Move selected variant media to top, preventing scrolling
+              // 将选定的变体媒体移到顶部，防止滚动
               var currentScroll = $(document).scrollTop();
               $newMedia
                 .closest(
@@ -3065,9 +3086,11 @@ theme.Product = (function () {
           }
         } else {
           // Switch media variant for thumbnail layout
+          // 切换缩略图布局的媒体变量
           this.switchMedia(variantMediaId);
         }
       }
+      // 主题变量 产品页面设为已加载
       if (!theme.variables.productPageLoad) {
         theme.variables.productPageLoad = true;
       }
@@ -3083,43 +3106,49 @@ theme.Product = (function () {
       ).filter('#ProductMediaWrapper-' + mediaId);
       $newMedia.trigger('mediaVisible');
     },
-
+    // 选择媒体
     switchMedia: function (mediaId) {
+      // 获取所有媒体标签
       // var $otherMedia = $(this.selectors.productMediaWrapper, this.$container);
-
+      // 所有媒体添加 hide类
       // $otherMedia.addClass(this.classes.hide);
+      // 找出需要展示的媒体
       // var $newMedia = $(
       //   this.selectors.productMediaWrapper,
       //   this.$container
       // ).filter('#ProductMediaWrapper-' + mediaId);
+      // 移除hide类
       // $newMedia.removeClass(this.classes.hide);
     },
-
+    // 产品缩略图选择
     productThumbnailSwitch: function () {
+      // 获取所有缩略图
       var $productThumbnails = $(
         this.selectors.productThumbnails,
         this.$container
       ).find(this.selectors.productThumbnail);
-
+      // 存在产品缩略图
       if ($productThumbnails.length) {
         // Switch the main media with one of the thumbnails
+        // 使用其中一个缩略图切换主媒体
         // Note: this does not change the variant selected, just the media
-        $productThumbnails
+        // 注意：这不会更改所选的变量，只会更改介质
+        /* $productThumbnails
           .on(
             'click',
             function (evt) {
-              evt.preventDefault();
-              var newMediaId = $(evt.currentTarget).attr('data-media-id');
-
-              this.switchMedia(newMediaId);
-              this.setActiveThumbnail(newMediaId);
-              this.triggerMediaChangeEvent(newMediaId);
+              console.log("点击缩略图");
+              evt.preventDefault();// 阻止默认事件
+              var newMediaId = $(evt.currentTarget).attr('data-media-id');// 获取新媒体的id
+              this.switchMedia(newMediaId);// 选择新媒体
+              this.setActiveThumbnail(newMediaId);// 设置激活缩略图
+              this.triggerMediaChangeEvent(newMediaId);// 触发媒体改变消息
             }.bind(this)
           )
-          .on('keyup', this.handleMediaFocus.bind(this));
+          .on('keyup', this.handleMediaFocus.bind(this)); */
       }
     },
-
+    // 处理媒体焦点
     handleMediaFocus: function (evt) {
       if (evt.keyCode !== 13) return;
 
@@ -3186,8 +3215,13 @@ theme.Product = (function () {
       ) {
         return;
       }
-
+      // 激活传送带状态
       this.isCarouselActive = true;
+      // 修改，修改slick设置和解除缩略图和大图绑定
+      this.slickSettings.asNavFor = false;
+      this.slickSettings.autoplay = true;
+      this.slickSettings.autoplaySpeed = 2000;
+
       var dotStyle = {
         max: 9,
         width: 20
@@ -3218,23 +3252,26 @@ theme.Product = (function () {
         .on(
           'afterChange',// 改变后的事件
           function (event, slick) {
-            this.trapCarouselFocus(slick.$slider);
+            this.trapCarouselFocus(slick.$slider);// 捕获传送带焦点
             // Let's do this after changing slides
+            // 让我们更换完幻灯片再做
             // Update featured media and active thumbnail on desktop
-            // when changing slides
-            this.setFeaturedMedia();
+            // 更新桌面上的特色媒体和活动缩略图 
+            // when changing slides 更换幻灯片时
+            this.setFeaturedMedia();// 设置特色媒体
           }.bind(this)
         );
 
-      if (this.isStackedLayout) return;
+      if (this.isStackedLayout) return;// 堆叠布局退出
       var slideIndex = $(
         this.selectors.productMediaWrapper + ':not(.' + this.classes.hide + ')',
         this.$container
       )
         .closest(this.selectors.productMediaFlexWrapper)
-        .data('slick-index');
+        .data('slick-index');/* 获取幻灯片序号 */
 
-      if (!slideIndex) return;
+      if (!slideIndex) return;/* 序号不存在推出 */
+      /* 将幻灯片跳转到序号处 */
       $(this.selectors.productMediaGroup, this.$container).slick(
         'slickGoTo',
         slideIndex,
@@ -3257,19 +3294,19 @@ theme.Product = (function () {
       }
       var calculatedTranslateDistance = 0;// 计算移动的距离
 
-      var maxTranslateDistance = (totalSlides - dotStyle.max) * dotStyle.width;
-      if (nextSlide >= dotStyle.max - 1) {
+      var maxTranslateDistance = (totalSlides - dotStyle.max) * dotStyle.width;// 最大的移动距离
+      if (nextSlide >= dotStyle.max - 1) {// 下一张幻灯片为最后一张
         calculatedTranslateDistance =
           (nextSlide + 2 - dotStyle.max) * dotStyle.width;
 
-        calculatedTranslateDistance =
+        calculatedTranslateDistance = // 计算的距离大于最大值
           maxTranslateDistance < calculatedTranslateDistance
             ? maxTranslateDistance
             : calculatedTranslateDistance;
       }
 
       $(this.selectors.slickDots)
-        .find('ul')
+        .find('ul')// 找到ul，设置位移
         .css('transform', 'translateX(-' + calculatedTranslateDistance + 'px)');
     },
     // 捕获传送带焦点
@@ -3286,7 +3323,7 @@ theme.Product = (function () {
         .find(this.focusableElements)
         .attr('tabindex', '0');
     },
-
+    // 设置特色媒体
     setFeaturedMedia: function () {
       var mediaId = $(this.selectors.productMediaGroup, this.$container)
         .find('.slick-slide.slick-active ' + this.selectors.productMediaWrapper)
@@ -3294,62 +3331,86 @@ theme.Product = (function () {
       this.triggerMediaChangeEvent(mediaId);
 
       // Thumbnail layout only
-      if (this.isStackedLayout) return;
-      this.switchMedia(mediaId);
-      this.setActiveThumbnail(mediaId);
+      // 仅缩略图布局
+      if (this.isStackedLayout) return;// 如果堆叠布局退出
+      this.switchMedia(mediaId);// 选择媒体
+      this.setActiveThumbnail(mediaId);// 设置激活缩略图
     },
-
+    // 摧毁媒体传送带
     destroyMediaCarousel: function () {
       if (
-        !$(this.selectors.productMediaGroup, this.$container).length ||
-        !this.isCarouselActive
+        !$(this.selectors.productMediaGroup, this.$container).length
       ) {
         return;
       }
-
+      // 调用捕获传送带函数 传入移除焦点参数 为true
       this.trapCarouselFocus(
         $(this.selectors.productMediaGroup, this.$container),
         true
       );
-
-      $(this.selectors.productMediaGroup, this.$container).slick('unslick');
-      this.isCarouselActive = false;
+      
+      // $(this.selectors.productMediaGroup, this.$container).slick('unslick');// 不能滑动
+      console.log("destroyMediaCarousel")
+      this.isCarouselActive = false;// 传送带激活改为关闭
+      // 修改，不管是否是移动端和pc端都改为激活传送带状态
+      this.slickSettings.asNavFor = '.product-single__thumbnails';
+      this.slickSettings.autoplay = false;
+      this.slickSettings.autoplaySpeed = 0;
+      $(this.selectors.productMediaGroup, this.$container).slick(this.slickSettings);// 修改设置后重新激活slick
+      // 缩略图也启动slick 并且和大图绑定
+      $('.product-single__thumbnails').slick({
+        arrows: true,
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.product-single__media-group',
+        centerMode: true,
+        focusOnSelect: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        prevArrow: $('.slick__arrow--previous'),
+        nextArrow: $('.slick__arrow--next'),
+      });
     },
-
+    // 产品页面设置
     productPage: function (evt) {
-      var moneyFormat = theme.strings.moneyFormat;
-      var variant = evt.variant;
+      var moneyFormat = theme.strings.moneyFormat;// 价格格式
+      var variant = evt.variant;// 变体
       var translations = theme.strings;
 
-      if (variant) {
+      if (variant) {// 变体存在
         // Display variant media on featured product
+        // 展示特色产品的不同媒体
+        // body里面不包含模板产品类时，
         if (!$('body').hasClass('template-product')) {
-          if (variant.featured_media) {
-            var variantMediaId =
+          if (variant.featured_media) {// 变体存在特色媒体
+            var variantMediaId = // 变体媒体id
               this.settings.sectionId + '-' + variant.featured_media.id;
-            var $newMedia = $(
+            var $newMedia = $( // 新的媒体
               this.selectors.productMediaWrapper +
               '[data-media-id="' +
               variantMediaId +
               '"]',
               this.$container
             );
-            var $otherMedia = $(
+            var $otherMedia = $( // 其他媒体
               this.selectors.productMediaWrapper +
               ':not([data-media-id="' +
               variantMediaId +
               '"])',
               this.$container
             );
-
+            // 新的移除hide类
             // $newMedia.removeClass(this.classes.hide);
+            // 其他的添加hide类
             // $otherMedia.addClass(this.classes.hide);
           }
         }
-
+        // 价格容器移除 visibility-hidden类
         $(this.selectors.priceContainer, this.$container).removeClass(
           'visibility-hidden ' + this.classes.priceContainerUnitAvailable
         );
+        // 价格设置aria-hidden属性为false
         $(this.selectors.productPrice, this.$container).attr(
           'aria-hidden',
           'false'
@@ -3360,18 +3421,25 @@ theme.Product = (function () {
         );
 
         // Select a valid variant if available
+        // 选择有效的变体(如果可用)
         if (variant.available) {
           // Available, enable the submit button, change text, show quantity elements
+          // 可用，启用提交按钮、更改文本、显示数量元素
+          // 添加购物车移除禁用属性，设置禁用为false
           $(this.selectors.addToCart, this.$container)
             .removeClass('disabled')
             .prop('disabled', false);
+          // 更改文本
           $(this.selectors.addToCartText, this.$container).html(
             translations.addToCart
           );
+          // 显示数量
           $(this.selectors.quantityElements, this.$container).show();
+          // 显示购买按钮
           $(this.selectors.shopifyPaymentButton, this.$container).show();
 
           // Update the full details link
+          // 更新完整详细信息链接
           var $link = $(this.selectors.productFullDetails, this.$container);
           if ($link.length) {
             $link.attr(
@@ -3381,6 +3449,7 @@ theme.Product = (function () {
           }
         } else {
           // Sold out, disable the submit button, change text, hide quantity elements
+          // 售完，禁用提交按钮，更改文本，隐藏数量元素
           $(this.selectors.addToCart, this.$container)
             .addClass('disabled')
             .prop('disabled', true);
@@ -3390,19 +3459,22 @@ theme.Product = (function () {
           $(this.selectors.quantityElements, this.$container).hide();
           $(this.selectors.shopifyPaymentButton, this.$container).hide();
         }
-
+        // 显示变体价格
         $(this.selectors.productPrice, this.$container)
           .html(theme.Currency.formatMoney(variant.price, moneyFormat))
           .show();
 
         // Also update and show the product's compare price if necessary
-        if (variant.compare_at_price > variant.price) {
+        // 如有必要，还可以更新和显示产品的比较价格
+        if (variant.compare_at_price > variant.price) {// 变体比较价格大于变体现价
           $(this.selectors.comparePrice, this.$container).html(
             theme.Currency.formatMoney(variant.compare_at_price, moneyFormat)
           );
-          // $(this.selectors.comparePriceWrapper, this.$container).removeClass(
-          //   this.classes.hide
-          // );
+          // 移除hide类，显示
+          $(this.selectors.comparePriceWrapper, this.$container).removeClass(
+            this.classes.hide
+          );
+          // 添加促销类
           $(this.selectors.productPrice, this.$container).addClass('on-sale');
           $(this.selectors.comparePriceWrapper, this.$container).attr(
             'aria-hidden',
@@ -3413,9 +3485,11 @@ theme.Product = (function () {
             'false'
           );
         } else {
-          // $(this.selectors.comparePriceWrapper, this.$container)
-          //   .addClass(this.classes.hide)
-          //   .attr('aria-hidden', 'true');
+          // 比较价格的容器隐藏
+          $(this.selectors.comparePriceWrapper, this.$container)
+            .addClass(this.classes.hide)
+            .attr('aria-hidden', 'true');
+          // 移除促销类
           $(this.selectors.productPrice, this.$container).removeClass(
             'on-sale'
           );
@@ -3426,29 +3500,29 @@ theme.Product = (function () {
           );
         }
 
-        if (variant.unit_price) {
-          var $unitPrice = $(this.selectors.unitPrice, this.$container);
-          var $unitPriceBaseUnit = $(
+        if (variant.unit_price) {// 变体单价存在
+          var $unitPrice = $(this.selectors.unitPrice, this.$container);// 获取单价标签对象
+          var $unitPriceBaseUnit = $(// 获取单位价格基本单位标签对象
             this.selectors.unitPriceBaseUnit,
             this.$container
           );
 
-          $unitPrice.html(
+          $unitPrice.html(// 单价标签内容填充
             theme.Currency.formatMoney(variant.unit_price, moneyFormat)
           );
           $unitPriceBaseUnit.html(this.getBaseUnit(variant));
-
+          // 价格标签容器添加 价格容器单位可用 类
           $(this.selectors.priceContainer, this.$container).addClass(
             this.classes.priceContainerUnitAvailable
           );
         }
 
-        // Also Show SKU
+        // Also Show SKU 还可以显示SKU 基本数量
         $(this.selectors.SKU).html(variant.sku);
       } else {
-        // The variant doesn't exist, disable submit button.
-        // This may be an error or notice that a specific variant is not available.
-        // To only show available variants, implement linked product options:
+        // The variant doesn't exist, disable submit button.变量不存在，请禁用提交按钮。
+        // This may be an error or notice that a specific variant is not available.这可能是错误或注意到特定变量不可用。
+        // To only show available variants, implement linked product options:要仅显示可用的变体，请实施链接的产品选项：
         //   - http://docs.shopify.com/manual/configuration/store-customization/advanced-navigation/linked-product-options
         $(this.selectors.addToCart, this.$container)
           .addClass('disabled')
@@ -3491,7 +3565,7 @@ theme.Product = (function () {
         return url + separator + key + '=' + value;
       }
     },
-
+    // 初始粘滞产品元
     initStickyProductMeta: function () {
       var $meta = $(this.selectors.meta, this.$container);
       var $wrapper = $(this.selectors.productWrapper, this.$container);
@@ -3509,9 +3583,11 @@ theme.Product = (function () {
       }
 
       // Force detatch if already detached. Prevent layout issues.
+      // 如果已分离，则强制分离。防止布局问题。
       $meta.trigger('detach.ScrollToFixed');
 
       // Detach and stop if on mobile breakpoint
+      // 在移动断点上分离并停止IF
       if (theme.variables.bpSmall) {
         return;
       }
@@ -3525,11 +3601,13 @@ theme.Product = (function () {
       /*============================================================================
         Calculate when to detach fixed element to avoid content overlap.
         Subtract product copy height from the limit because plugin uses offset().top
+        计算何时分离固定元素以避免内容重叠。因为插件使用offset().top，所以从限制中减去产品复制高度
       ==============================================================================*/
       var calcLimit = $wrapper.offset().top + $wrapper.height();
       calcLimit -= productCopyHeight;
 
       // Init sticky if desc shorter than images and fits in viewport
+      // 如果代码比图像短并适合视区，则初始化粘滞
       if (
         productCopyHeight < productMediaGroupHeight &&
         productCopyHeight < $(window).height()
