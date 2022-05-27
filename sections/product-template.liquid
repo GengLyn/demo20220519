@@ -85,32 +85,60 @@
             {%- include 'xr-button' with model_id: first_3d_model.id, multi: false -%}
           {%- endif -%}
           {% unless stacked %}
-            <ul class="product-single__thumbnails small--hide grid-uniform" data-product-thumbnails data-slick-previous data-slick-next>
-              {% for media in product.media %}
-                {% if product.media.size > 1 %}
-                  <li class="grid__item product-single__media-wrapper">
-                    {%- capture thumbnail_alt -%}
-                      {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
-                        {{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
-                      {%- elsif media.media_type == 'model' -%}
-                        {{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
-                      {%- else -%}
-                        {{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
-                      {%- endif -%}
-                    {%- endcapture -%}
-                    {% comment %} {% if media == featured_media %} active-thumb{% endif %} {% endcomment %}
-                    <a href="{{ media | img_url: 'grande' }}" class="product-single__thumbnail" data-media-id="{{ section.id }}-{{ media.id }}" data-product-thumbnail>
-                      <img class="product-single__thumb" src="{{ media | img_url: '150x' }}" alt="{{ thumbnail_alt }}">
-                      {%- if media.media_type == 'video' or media.media_type == 'external_video' or media.media_type == 'model' -%}
-                        <div class="product-single__thumbnail-badge">
-                          {% include 'svg-definitions' with media.media_type %}
-                        </div>
-                      {%- endif -%}
-                    </a>
-                  </li>
-                {% endif %}
-              {% endfor %}
-            </ul>
+            <style>
+              .product-single__thumbnails-container{
+                position:relative;
+                width:100%;
+                overflow:hidden;
+              }
+              .self-pre-btn,.self-next-btn{
+                position:absolute;
+                top:50%;
+                transform:translateY(-50%);
+                width:20px;
+                height:50px;
+                background:rgba(255,255,255,0.8);
+                line-height:30px;
+                text-align:center;
+              }
+              .self-pre-btn{
+                left:0;
+                
+              }
+              .self-next-btn{
+                right:0;
+              }
+            </style>
+            <div class="product-single__thumbnails-container">
+              <ul class="product-single__thumbnails small--hide grid-uniform" data-product-thumbnails data-slick-previous data-slick-next>
+                {% for media in product.media %}
+                  {% if product.media.size > 1 %}
+                    <li class="grid__item product-single__media-wrapper">
+                      {%- capture thumbnail_alt -%}
+                        {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                          {{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+                        {%- elsif media.media_type == 'model' -%}
+                          {{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+                        {%- else -%}
+                          {{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+                        {%- endif -%}
+                      {%- endcapture -%}
+                      {% comment %} {% if media == featured_media %} active-thumb{% endif %} {% endcomment %}
+                      <a href="{{ media | img_url: 'grande' }}" class="product-single__thumbnail" data-media-id="{{ section.id }}-{{ media.id }}" data-product-thumbnail>
+                        <img class="product-single__thumb" src="{{ media | img_url: '150x' }}" alt="{{ thumbnail_alt }}">
+                        {%- if media.media_type == 'video' or media.media_type == 'external_video' or media.media_type == 'model' -%}
+                          <div class="product-single__thumbnail-badge">
+                            {% include 'svg-definitions' with media.media_type %}
+                          </div>
+                        {%- endif -%}
+                      </a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+              <button class="self-pre-btn"><</button>
+              <button class="self-next-btn">></button>
+            </div>
           {% endunless %}
           <div class="slick__controls slick-slider">
             <button class="slick__arrow slick__arrow--previous" aria-label="{{ 'home_page.slideshow.previous_slide' | t }}" data-slick-previous>
